@@ -1,0 +1,52 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 200vh;
+}
+
+.ad-format {
+    position: fixed;
+    height: 200px;
+    width: 100vw;
+    background-color: aqua;
+    display: flex;
+    justify-content: center;
+    bottom: 0;
+}
+
+.card {
+    width: 300px;
+    position: absolute;
+    transform: translate('50%','50%');
+    transform-origin: center;
+    visibility: hidden;
+}
+
+.card:nth-child(4){
+    /* border: 5px solid blue; */
+    scale: .9;
+    opacity: 1;
+
+}
+
+.card:nth-child(3){
+    /* border: 5px solid red; */
+    scale: .8;
+    opacity: 0.7;
+}
+
+.card:nth-child(2){
+    /* border: 5px solid green; */
+    scale: .7;
+    opacity: .5;
+}
+
+.card:nth-child(1){
+    /* border: 5px solid yellow; */
+    scale: .6;
+    opacity: .3;
+}
+
+.visible {
+    visibility: visible;
+}
