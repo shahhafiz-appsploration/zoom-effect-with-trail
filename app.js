@@ -4,9 +4,9 @@ const cards2 = cardGroups[1].querySelectorAll('.card')
 const cards3 = cardGroups[2].querySelectorAll('.card')
 
 
-const threshold = 100;
-const threshold2 = 300;
-const threshold3 = 500;
+const threshold = 300;
+const threshold2 = 800;
+const threshold3 = 1300;
 
 addEventListener("scroll", (event) => {
     const scrollOffset = window.pageYOffset
