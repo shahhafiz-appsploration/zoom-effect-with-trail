@@ -6,6 +6,10 @@ body{
     padding: 0;
 }
 
+.dummy-content{
+    color: #d2d2d2;
+}
+
 .ad-format {
     position: fixed;
     height: 25%;
@@ -47,7 +51,7 @@ body{
 }
 
 .card:nth-child(1).visible {
-    transition: all 1.0s ease-out 1.0s;
+    transition: all 1.0s ease-in 1.0s;
 }
 
 .card:nth-child(1).hidden {
@@ -70,7 +74,7 @@ body{
 }
 
 .card:nth-child(2).visible {
-    transition: all 1.0s ease-out .9s;
+    transition: all 1.0s ease-in .9s;
 }
 
 .card:nth-child(2).hidden {
@@ -93,7 +97,7 @@ body{
 }
 
 .card:nth-child(3).visible {
-    transition: all 1.0s ease-out .8s;
+    transition: all 1.0s ease-in .8s;
 }
 
 .card:nth-child(3).hidden {
@@ -115,7 +119,7 @@ body{
 }
 
 .card:nth-child(4).visible {
-    transition: all 1.0s ease-out .7s;
+    transition: all 1.0s ease-in .7s;
 }
 
 .card:nth-child(4).hidden {
@@ -131,24 +135,29 @@ body{
 
 
 .hidden {
-    transform: translate(0px, 100px) scale(0) rotate3d(1,0,0, -10deg);
+    scale: 0;
+    /* rotate: x -100deg; */
     opacity: 0;
     transform-origin: bottom;
+    /* translate is set by app.js */
 }
 
 
 .visible{
-    transform: translate(0px, 10px) scale(1);
+    translate: 0 10px !important;
+    scale: 1;
 }
 
 .seen {
     opacity: 0;
-    scale: 1.2;
+    scale: 1.3;
     transform-origin: bottom;
-    transform: translate(0px, 100px) rotate3d(1,0,0,270deg);
+    /* rotate: x 180deg; */
+    /* translate is set by app.js */
 }
 
 .resee {
     opacity: 1;
-    transform: translate(0px, 10px) scale(1);
+    scale: 1;
+    translate: 0 10px;
 }
