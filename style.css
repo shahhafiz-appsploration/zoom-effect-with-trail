@@ -137,6 +137,8 @@ body{
 .hidden {
     scale: 0;
     /* rotate: x -100deg; */
+    transform: rotateX('-100deg');
+
     opacity: 0;
     transform-origin: bottom;
     /* translate is set by app.js */
@@ -152,7 +154,8 @@ body{
     opacity: 0;
     scale: 1.3;
     transform-origin: bottom;
-    /* rotate: x 180deg; */
+    /* rotateX: 180deg; */
+    transform: rotateX('180deg');
     /* translate is set by app.js */
 }
 
