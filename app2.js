@@ -13,7 +13,6 @@ let queues = []
 
 var Queue = function (cardNumber, status) {
     this.isWaiting = true
-    this.done = false
     this.card = cardNumber
     this.status = status
 };
@@ -30,25 +29,13 @@ Queue.prototype.getStatus = function () {
     return this.status;
 }
 
-Queue.prototype.getDone = function () {
-    return this.done;
-}
-
-Queue.prototype.setDone = function (value) {
-    return this.done = value;
-}
-
 Queue.prototype.getCardNumber = function () {
     return this.card;
 }
 
-Queue.prototype.setVisible = function () {
-    this.status = this.visible;
-};
-
-
 addEventListener('scroll', event => {
     const scrollOffset = window.pageYOffset
+    console.log(scrollOffset)
 
     if(scrollOffset < threshold){
         if(queues.length == 0 ||  queues[queues.length - 1].getCardNumber() !== 0){
