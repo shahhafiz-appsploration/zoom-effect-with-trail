@@ -87,7 +87,7 @@ function setCardResee(card){
 
 function animateCard(q){
     console.log('animating card')
-    return new Promise(resolve => setTimeout(() => {
+    return new Promise(resolve => {
         if(q.getCardNumber() === 0){
             cards1.forEach(card => {
                 setCardHidden(card)
@@ -134,8 +134,10 @@ function animateCard(q){
                 setCardVisible(card)
             })
         }
-        resolve(true);
-    }, 2000));
+        setTimeout(() => {
+            resolve(true);
+        }, 2000);
+    });
 }
 
 
