@@ -12,11 +12,14 @@ const threshold = 300;
 const threshold2 = 600;
 const threshold3 = 900;
 
+const card1IsShown = false;
+const card2IsShown = false;
+const card3IsShown = false;
+
 allCards.forEach(card => {
     setCardHidden(card)
 })
 
-let wasShowing = 0
 addEventListener("scroll", (event) => {
     const scrollOffset = window.pageYOffset
     console.log(scrollOffset)
@@ -27,7 +30,6 @@ addEventListener("scroll", (event) => {
             card.classList.remove('resee')
             setCardHidden(card)
         })
-        wasShowing = 0
     }
     else if(scrollOffset >= threshold && scrollOffset < threshold2){
         console.log('show 1')
