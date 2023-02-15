@@ -5,99 +5,101 @@ const cardGroups = document.querySelectorAll(".card-group");
 
 const threshold = 300;
 
-let animationDirection = "";
 const forward = "forward";
 const backward = "backward";
 
-let currentCard = -1;
-let prevCards = -1;
 let lastScrollPosition = 0;
 let scrollOffset = 0;
 
 var Queue = function () {
-	this.direction = forward
-	this.nextIndex = 0
-	this.currentIndex = -1
-	this.prevIndex = -2
-  	this.array = [];
+  // this.nextIndex = 0
+  this.currentIndex = 2;
+  // this.prevIndex = null
+  this.array = [];
+};
+
+Queue.prototype.getCurrentIndex = function () {
+  return this.currentIndex;
 };
 
 Queue.prototype.getQueueLength = function () {
-	return this.array.length;
-}
+  return this.array.length;
+};
 
 Queue.prototype.push = function (element) {
   this.array.push(element);
 };
 
-Queue.prototype.updateNextIndex = function () {
-	this.prevIndex = this.currentIndex;
-	this.currentIndex = this.nextIndex;
+Queue.prototype.getNextIndex = function () {
+  let temp = this.currentIndex + 1;
 
-	let next = this.nextIndex + 1;
+  if (temp < this.array.length) {
+    return temp;
+  } else {
+    return 0;
+  }
+};
 
-	if(next < this.array.length){
-		this.nextIndex = next
-	} else {
-		this.nextIndex = this.array.length - next
-	}
-}
+Queue.prototype.getPrevIndex = function () {
+  let temp = this.currentIndex - 1;
 
-Queue.prototype.updatePrevIndex = function () {
-	this.nextIndex = this.currentIndex;
-	this.currentIndex = this.prevIndex;
+  if (temp >= 0) {
+    return temp;
+  } else {
+    return this.array.length - 1;
+  }
+};
 
-	let prev = this.prevIndex - 1;
+Queue.prototype.showNextCard = function () {
+  let nextCards = this.array[this.getNextIndex()];
 
-	if(prev >= 0){
-		this.prevIndex = prev
-	} else {
-		this.prevIndex = this.array.length - 1
-	}
-}
+  let currentCards = this.array[this.getCurrentIndex()];
 
-Queue.prototype.showNextCard= function (){
-	console.log(this.prevIndex, this.currentIndex, this.nextIndex)
-	nextCards = this.array[this.nextIndex]
-	
-	let currentCards = this.currentIndex < 0 ? [] : this.array[this.currentIndex]
-	
-	currentCards.forEach(c => {
-		setCardSeen(c)
-	})
-	
-	nextCards.forEach(c => {
-		setCardVisible(c)
-	})
+  let prevCards = this.array[this.getPrevIndex()];
 
-	this.updateNextIndex()
-}
+  currentCards.forEach((c) => {
+    setCardSeen(c);
+  });
 
-Queue.prototype.showPrevCard = function (){
-	console.log(this.prevIndex, this.currentIndex, this.nextIndex)
+  nextCards.forEach((c) => {
+    setCardVisible(c);
+  });
 
-	// let prevCards = this.array[this.prevIndex]
-	let prevCards = this.getCards(this.prevIndex)
-	
-	let currentCards = this.getCards(this.currentIndex)
+  prevCards.forEach((c) => {
+    setCardHidden(c);
+  });
 
-	currentCards.forEach(c => {
-		setCardHidden(c)
-	})
+  this.currentIndex = this.getNextIndex();
+};
 
-	prevCards.forEach(c => {
-		setCardResee(c)
-	})
-	
-	this.updatePrevIndex()
-}
+Queue.prototype.showPrevCard = function () {
+  let nextCards = this.array[this.getNextIndex()];
+
+  let prevCards = this.array[this.getPrevIndex()];
+
+  let currentCards = this.array[this.currentIndex];
+
+  currentCards.forEach((c) => {
+    setCardHidden(c);
+  });
+
+  prevCards.forEach((c) => {
+    setCardResee(c);
+  });
+
+  nextCards.forEach((c) => {
+    setCardSeen(c);
+  });
+
+  this.currentIndex = this.getPrevIndex();
+};
 
 Queue.prototype.getCards = function (index) {
-	if(index >= 0){
-		return this.array[index]
-	}
-  	
-	return []
+  if (index >= 0) {
+    return this.array[index];
+  }
+
+  return [];
 };
 
 let CardQueue = new Queue();
@@ -124,43 +126,50 @@ function checkForCardSwap() {
 }
 
 function showNextCard() {
-	CardQueue.showNextCard()
-	setTimeout(() => {
-		lastScrollPosition = scrollOffset;
-		checkForCardSwap()
-	}, 2000);
+  CardQueue.showNextCard();
+  setTimeout(() => {
+    lastScrollPosition = scrollOffset;
+    checkForCardSwap();
+  }, 2000);
 }
 
 function showPrevCard() {
-	CardQueue.showPrevCard()
-	setTimeout(() => {
-		lastScrollPosition = scrollOffset;
-		checkForCardSwap()
-	}, 2000);
+  CardQueue.showPrevCard();
+  setTimeout(() => {
+    lastScrollPosition = scrollOffset;
+    checkForCardSwap();
+  }, 2000);
+  
 }
 
-function setCardHidden(card){
-    card.classList.remove('visible')
-    card.classList.remove('resee')
-    card.classList.add('hidden');
-    card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
+function setCardHidden(card) {
+  card.classList.remove("visible");
+  card.classList.remove("resee");
+  card.classList.remove("seen");
+  card.classList.add("hidden");
+  card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
 }
 
 function setCardVisible(card) {
   card.classList.remove("hidden");
   card.classList.remove("seen");
+  card.classList.remove("resee");
   card.classList.add("visible");
 }
 
 function setCardResee(card) {
   card.style = "";
   card.classList.remove("seen");
+  card.classList.remove("hidden");
+  card.classList.remove("visible");
   card.classList.add("resee");
 }
 
 function setCardSeen(card) {
   card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
   card.classList.remove("visible");
+  card.classList.remove("hidden");
+  card.classList.remove("resee");
   card.classList.add("seen");
 }
 
@@ -169,5 +178,4 @@ function stopAnimationFrame() {
   cancelAnimationFrame(animationFrameId);
 }
 
-// CardQueue.showNextCard();
 checkForCardSwap();
