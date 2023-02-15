@@ -45,6 +45,10 @@ body{
     border: none !important;
 }
 
+.pristine {
+    visibility: hidden;
+}
+
 .card:nth-child(1){
     opacity: .1;
     border: 5px solid yellow;

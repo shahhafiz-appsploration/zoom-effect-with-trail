@@ -138,8 +138,8 @@ function showPrevCard() {
   setTimeout(() => {
     lastScrollPosition = scrollOffset;
     checkForCardSwap();
-  }, 2000);
-  
+  }, 1500);
+
 }
 
 function setCardHidden(card) {
@@ -154,6 +154,7 @@ function setCardVisible(card) {
   card.classList.remove("hidden");
   card.classList.remove("seen");
   card.classList.remove("resee");
+  card.classList.remove("pristine");
   card.classList.add("visible");
 }
 
@@ -162,6 +163,7 @@ function setCardResee(card) {
   card.classList.remove("seen");
   card.classList.remove("hidden");
   card.classList.remove("visible");
+  card.classList.remove("pristine");
   card.classList.add("resee");
 }
 
