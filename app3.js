@@ -5,9 +5,6 @@ const cardGroups = document.querySelectorAll(".card-group");
 
 const threshold = 300;
 
-const forward = "forward";
-const backward = "backward";
-
 let lastScrollPosition = 0;
 let scrollOffset = 0;
 
@@ -19,7 +16,7 @@ addEventListener("scroll", function () {
 
 function checkForCardSwap() {
   const dY = scrollOffset - lastScrollPosition;
-  console.log(dY);
+  console.log('dy',dY);
   if (dY >= threshold) {
     showNextCard();
   } else if (dY <= -threshold) {
@@ -31,10 +28,17 @@ function checkForCardSwap() {
 
 function showNextCard() {
 	stopAnimationFrame()
-
+	
   let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
   let currentCards = cardGroups[currentIndex].querySelectorAll('.card');
   let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
+	
+  let lastTrail = nextCards[0];
+
+  lastTrail.addEventListener('transitionend',() => {
+		lastScrollPosition = scrollOffset;
+		checkForCardSwap();
+	},{once: true});
 
   currentCards.forEach((c) => {
     setCardSeen(c);
@@ -50,10 +54,6 @@ function showNextCard() {
 
   currentIndex = this.getNextIndex();
 
-  setTimeout(() => {
-		lastScrollPosition = scrollOffset;
-		checkForCardSwap();
-  }, 1500);
 }
 
 function showPrevCard() {
@@ -62,6 +62,13 @@ function showPrevCard() {
   let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
   let currentCards = cardGroups[currentIndex].querySelectorAll('.card');
   let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
+
+  let lastTrail = prevCards[prevCards.length - 1];
+
+	lastTrail.addEventListener('transitionend',() => {
+		lastScrollPosition = scrollOffset;
+		checkForCardSwap();
+	},{once: true});
 
   currentCards.forEach((c) => {
     setCardHidden(c);
@@ -76,11 +83,6 @@ function showPrevCard() {
   });
 
   currentIndex = this.getPrevIndex();
-
-  setTimeout(() => {
-		lastScrollPosition = scrollOffset;
-		checkForCardSwap();
-  }, 1500);
 }
 
 function getPrevIndex() {

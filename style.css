@@ -55,6 +55,10 @@ body{
 }
 
 .card:nth-child(1).visible {
+    /* transition-property: scale, transform-origin, translate, visibility;
+    transition-duration: 1s;
+    transition-timing-function: ease-in;
+    transition-delay: 1s; */
     transition: all 1.0s ease-in 1.0s;
 }
 
