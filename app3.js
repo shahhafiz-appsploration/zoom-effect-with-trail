@@ -11,103 +11,7 @@ const backward = "backward";
 let lastScrollPosition = 0;
 let scrollOffset = 0;
 
-var Queue = function () {
-  // this.nextIndex = 0
-  this.currentIndex = 2;
-  // this.prevIndex = null
-  this.array = [];
-};
-
-Queue.prototype.getCurrentIndex = function () {
-  return this.currentIndex;
-};
-
-Queue.prototype.getQueueLength = function () {
-  return this.array.length;
-};
-
-Queue.prototype.push = function (element) {
-  this.array.push(element);
-};
-
-Queue.prototype.getNextIndex = function () {
-  let temp = this.currentIndex + 1;
-
-  if (temp < this.array.length) {
-    return temp;
-  } else {
-    return 0;
-  }
-};
-
-Queue.prototype.getPrevIndex = function () {
-  let temp = this.currentIndex - 1;
-
-  if (temp >= 0) {
-    return temp;
-  } else {
-    return this.array.length - 1;
-  }
-};
-
-Queue.prototype.showNextCard = function () {
-  let nextCards = this.array[this.getNextIndex()];
-
-  let currentCards = this.array[this.getCurrentIndex()];
-
-  let prevCards = this.array[this.getPrevIndex()];
-
-  currentCards.forEach((c) => {
-    setCardSeen(c);
-  });
-
-  nextCards.forEach((c) => {
-    setCardVisible(c);
-  });
-
-  prevCards.forEach((c) => {
-    setCardHidden(c);
-  });
-
-  this.currentIndex = this.getNextIndex();
-};
-
-Queue.prototype.showPrevCard = function () {
-  let nextCards = this.array[this.getNextIndex()];
-
-  let prevCards = this.array[this.getPrevIndex()];
-
-  let currentCards = this.array[this.currentIndex];
-
-  currentCards.forEach((c) => {
-    setCardHidden(c);
-  });
-
-  prevCards.forEach((c) => {
-    setCardResee(c);
-  });
-
-  nextCards.forEach((c) => {
-    setCardSeen(c);
-  });
-
-  this.currentIndex = this.getPrevIndex();
-};
-
-Queue.prototype.getCards = function (index) {
-  if (index >= 0) {
-    return this.array[index];
-  }
-
-  return [];
-};
-
-let CardQueue = new Queue();
-
-for (let index = 0; index < cardGroups.length; index++) {
-  const card = cardGroups[index].querySelectorAll(".card");
-  CardQueue.push(card);
-}
+let currentIndex = cardGroups.length - 1;
 
 addEventListener("scroll", function () {
   scrollOffset = window.pageYOffset;
@@ -126,20 +30,78 @@ function checkForCardSwap() {
 }
 
 function showNextCard() {
-  CardQueue.showNextCard();
+	stopAnimationFrame()
+
+  let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
+  let currentCards = cardGroups[currentIndex].querySelectorAll('.card');
+  let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
+
+  currentCards.forEach((c) => {
+    setCardSeen(c);
+  });
+
+  nextCards.forEach((c) => {
+    setCardVisible(c);
+  });
+
+  prevCards.forEach((c) => {
+    setCardHidden(c);
+  });
+
+  currentIndex = this.getNextIndex();
+
   setTimeout(() => {
-    lastScrollPosition = scrollOffset;
-    checkForCardSwap();
-  }, 2000);
+		lastScrollPosition = scrollOffset;
+		checkForCardSwap();
+  }, 1500);
 }
 
 function showPrevCard() {
-  CardQueue.showPrevCard();
-  setTimeout(() => {
-    lastScrollPosition = scrollOffset;
-    checkForCardSwap();
-  }, 1500);
+  stopAnimationFrame()
 
+  let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
+  let currentCards = cardGroups[currentIndex].querySelectorAll('.card');
+  let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
+
+  currentCards.forEach((c) => {
+    setCardHidden(c);
+  });
+
+  prevCards.forEach((c) => {
+    setCardResee(c);
+  });
+
+  nextCards.forEach((c) => {
+    setCardSeen(c);
+  });
+
+  currentIndex = this.getPrevIndex();
+
+  setTimeout(() => {
+		lastScrollPosition = scrollOffset;
+		checkForCardSwap();
+  }, 1500);
+}
+
+function getPrevIndex() {
+  let totalCards = cardGroups.length;
+  let prevIndex = currentIndex - 1;
+
+  if (prevIndex >= 0) {
+    return prevIndex;
+  } else {
+    return totalCards - 1;
+  }
+}
+
+function getNextIndex() {
+  let totalCards = cardGroups.length;
+  let temporaryNextIndex = currentIndex + 1;
+  if (temporaryNextIndex < totalCards) {
+    return temporaryNextIndex;
+  } else {
+    return 0;
+  }
 }
 
 function setCardHidden(card) {
