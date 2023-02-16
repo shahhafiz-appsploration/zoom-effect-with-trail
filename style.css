@@ -51,23 +51,19 @@ body{
 }
 
 .card:nth-child(1).visible {
-    /* transition-property: scale, transform-origin, translate, visibility;
-    transition-duration: 1s;
-    transition-timing-function: ease-in;
-    transition-delay: 1s; */
-    transition: all 1.0s ease-in 1.0s;
+    transition-delay: 1.0s;
 }
 
 .card:nth-child(1).hidden {
-    transition: all .5s ease-out .0s;
+    transition-delay: .0s;
 }
 
 .card:nth-child(1).seen {
-    transition: all .5s ease-out .3s;
+    transition-delay: .3s;
 }
 
 .card:nth-child(1).resee {
-    transition: all .5s ease-out 1.0s;
+    transition-delay: 1.0s;
 }
 
 
@@ -78,19 +74,19 @@ body{
 }
 
 .card:nth-child(2).visible {
-    transition: all 1.0s ease-in .9s;
+    transition-delay: .9s;
 }
 
 .card:nth-child(2).hidden {
-    transition: all .5s ease-out .1s;
+    transition-delay: .1s;
 }
 
 .card:nth-child(2).seen {
-    transition: all .5s ease-out .2s;
+    transition-delay: .2s;
 }
 
 .card:nth-child(2).resee {
-    transition: all .5s ease-out 1.1s;
+    transition-delay: 1.1s;
 }
 
 
@@ -101,19 +97,20 @@ body{
 }
 
 .card:nth-child(3).visible {
-    transition: all 1.0s ease-in .8s;
+    /* transition: all 1.0s ease-in .8s; */
+    transition-delay: .8s;
 }
 
 .card:nth-child(3).hidden {
-    transition: all .5s ease-out .2s;
+    transition-delay: .2s;
 }
 
 .card:nth-child(3).seen {
-    transition: all .5s ease-out .1s;
+    transition-delay:  .1s;
 }
 
 .card:nth-child(3).resee {
-    transition: all .5s ease-out 1.2s;
+    transition-delay: 1.2s;
 }
 
 /* ******************** */
@@ -123,33 +120,38 @@ body{
 }
 
 .card:nth-child(4).visible {
-    transition: all 1.0s ease-in .7s;
+    transition-delay: .7s;
 }
 
 .card:nth-child(4).hidden {
-    transition: all .5s ease-out .3s;
+    transition-delay: .3s;
 }
 .card:nth-child(4).seen {
-    transition: all .5s ease-out .0s;
+    transition-delay: .0s;
 
 }
 .card:nth-child(4).resee {
-    transition: all .5s ease-out 1.3s;
+    transition-delay: 1.3s;
 }
 
 
 .hidden {
     scale: 0;
-    /* rotate: x -100deg; */
     transform: rotateX('-100deg');
-
     opacity: 0;
     transform-origin: bottom;
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: ease-out;
+
     /* translate is set by app.js */
 }
 
 
 .visible{
+    transition-property: all;
+    transition-duration: 1.0s;
+    transition-timing-function: ease-in;
     translate: 0 10px !important;
     scale: 1;
 }
@@ -158,8 +160,10 @@ body{
     opacity: 0;
     scale: 1.3;
     transform-origin: bottom;
-    /* rotateX: 180deg; */
     transform: rotateX('180deg');
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: ease-out;
     /* translate is set by app.js */
 }
 
@@ -167,4 +171,7 @@ body{
     opacity: 1;
     scale: 1;
     translate: 0 10px;
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function:  ease-out;
 }
