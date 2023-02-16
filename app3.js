@@ -1,6 +1,6 @@
 let animationFrameId = undefined;
 const adFormat = document.querySelector(".ad-format");
-
+const allCards = document.querySelectorAll('.card')
 const cardGroups = document.querySelectorAll(".card-group");
 
 const threshold = 300;
@@ -30,8 +30,6 @@ function showNextCard() {
 	stopAnimationFrame()
 	
   let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
-  let currentCards = cardGroups[currentIndex].querySelectorAll('.card');
-  let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
 	
   let lastTrail = nextCards[0];
 
@@ -40,17 +38,26 @@ function showNextCard() {
 		checkForCardSwap();
 	},{once: true});
 
-  currentCards.forEach((c) => {
-    setCardSeen(c);
-  });
+	for (let index = 0; index < cardGroups.length; index++) {
+		const cards = cardGroups[index].querySelectorAll('.card');
+		if(index === currentIndex){
+			cards.forEach(c => {
+				setCardSeen(c)
+			})
+			continue;
+		} 
 
-  nextCards.forEach((c) => {
-    setCardVisible(c);
-  });
+		if(index === getNextIndex()){
+			cards.forEach(c => {
+				setCardVisible(c)
+			})
+			continue;
+		}
 
-  prevCards.forEach((c) => {
-    setCardHidden(c);
-  });
+		cards.forEach(c => {
+			setCardHidden(c)
+		})
+	}
 
   currentIndex = this.getNextIndex();
 
@@ -59,8 +66,6 @@ function showNextCard() {
 function showPrevCard() {
   stopAnimationFrame()
 
-  let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
-  let currentCards = cardGroups[currentIndex].querySelectorAll('.card');
   let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
 
   let lastTrail = prevCards[prevCards.length - 1];
@@ -70,17 +75,26 @@ function showPrevCard() {
 		checkForCardSwap();
 	},{once: true});
 
-  currentCards.forEach((c) => {
-    setCardHidden(c);
-  });
+	for (let index = 0; index < cardGroups.length; index++) {
+		const cards = cardGroups[index].querySelectorAll('.card');
+		if(index === currentIndex){
+			cards.forEach(c => {
+				setCardHidden(c)
+			})
+			continue;
+		} 
 
-  prevCards.forEach((c) => {
-    setCardResee(c);
-  });
+		if(index === getPrevIndex()){
+			cards.forEach(c => {
+				setCardResee(c)
+			})
+			continue;
+		}
 
-  nextCards.forEach((c) => {
-    setCardSeen(c);
-  });
+		cards.forEach(c => {
+			setCardSeen(c)
+		})
+	}
 
   currentIndex = this.getPrevIndex();
 }
@@ -99,6 +113,7 @@ function getPrevIndex() {
 function getNextIndex() {
   let totalCards = cardGroups.length;
   let temporaryNextIndex = currentIndex + 1;
+
   if (temporaryNextIndex < totalCards) {
     return temporaryNextIndex;
   } else {
@@ -143,5 +158,9 @@ function stopAnimationFrame() {
   console.log("stopAnimationFrame, ", animationFrameId);
   cancelAnimationFrame(animationFrameId);
 }
+
+allCards.forEach(c => {
+	setCardHidden(c)
+})
 
 checkForCardSwap();
