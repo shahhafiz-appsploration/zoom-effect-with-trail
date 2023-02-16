@@ -14,12 +14,13 @@ body{
     position: fixed;
     height: 25%;
     width: 100vw;
-    background-color: aqua;
+    /* background-color: aqua; */
     bottom: 0;
 }
 
 .content{
     height: 90%;
+    position: relative;
 }
 
 .footer {
@@ -29,10 +30,11 @@ body{
 .card-group {
     display: flex;
     justify-content: center;
+    background-color: red;
 }
 
 .card {
-    height: 80%;
+    height: 100%;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -51,7 +53,7 @@ body{
 }
 
 .card:nth-child(1).visible {
-    transition-delay: 1.0s;
+    transition-delay: .8s;
 }
 
 .card:nth-child(1).hidden {
@@ -59,7 +61,7 @@ body{
 }
 
 .card:nth-child(1).seen {
-    transition-delay: .3s;
+    transition-delay: .5s;
 }
 
 .card:nth-child(1).resee {
@@ -74,7 +76,7 @@ body{
 }
 
 .card:nth-child(2).visible {
-    transition-delay: .9s;
+    transition-delay: .4s;
 }
 
 .card:nth-child(2).hidden {
@@ -82,7 +84,7 @@ body{
 }
 
 .card:nth-child(2).seen {
-    transition-delay: .2s;
+    transition-delay: .4s;
 }
 
 .card:nth-child(2).resee {
@@ -98,7 +100,7 @@ body{
 
 .card:nth-child(3).visible {
     /* transition: all 1.0s ease-in .8s; */
-    transition-delay: .8s;
+    transition-delay: .2s;
 }
 
 .card:nth-child(3).hidden {
@@ -106,7 +108,7 @@ body{
 }
 
 .card:nth-child(3).seen {
-    transition-delay:  .1s;
+    transition-delay:  .3s;
 }
 
 .card:nth-child(3).resee {
@@ -120,14 +122,14 @@ body{
 }
 
 .card:nth-child(4).visible {
-    transition-delay: .7s;
+    transition-delay: .0s;
 }
 
 .card:nth-child(4).hidden {
     transition-delay: .3s;
 }
 .card:nth-child(4).seen {
-    transition-delay: .0s;
+    transition-delay: .2s;
 
 }
 .card:nth-child(4).resee {
@@ -137,7 +139,7 @@ body{
 
 .hidden {
     scale: 0;
-    transform: rotateX('-100deg');
+    transform: rotateX(180deg);
     opacity: 0;
     transform-origin: bottom;
     transition-property: all;
@@ -151,26 +153,26 @@ body{
 .visible{
     transition-property: all;
     transition-duration: 1.0s;
-    transition-timing-function: ease-in;
-    translate: 0 10px !important;
+    transition-timing-function: linear;
+    translate: 0 0px !important;
     scale: 1;
 }
 
 .seen {
     opacity: 0;
-    scale: 1.3;
+    scale: 1.4;
     transform-origin: bottom;
-    transform: rotateX('180deg');
+    transform: rotateX(180deg);
     transition-property: all;
     transition-duration: .5s;
-    transition-timing-function: ease-out;
+    transition-timing-function: linear;
     /* translate is set by app.js */
 }
 
 .resee {
     opacity: 1;
     scale: 1;
-    translate: 0 10px;
+    translate: 0 0px;
     transition-property: all;
     transition-duration: .5s;
     transition-timing-function:  ease-out;
