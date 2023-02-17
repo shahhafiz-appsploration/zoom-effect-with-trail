@@ -2,7 +2,7 @@ let animationFrameId = undefined;
 const adFormat = document.querySelector(".ad-format");
 const allCards = document.querySelectorAll('.card')
 const cardGroups = document.querySelectorAll(".card-group");
-
+const totalCards = cardGroups.length;
 const threshold = 300;
 
 let lastScrollPosition = 0;
@@ -12,6 +12,7 @@ let currentIndex = cardGroups.length - 1;
 
 addEventListener("scroll", function () {
   scrollOffset = window.pageYOffset;
+  // todo: passive and active
 });
 
 function checkForCardSwap() {
@@ -29,11 +30,11 @@ function checkForCardSwap() {
 function showNextCard() {
 	stopAnimationFrame()
 	
-  let nextCards = cardGroups[getNextIndex()].querySelectorAll('.card');
+  let nextCardGroups = cardGroups[getNextIndex()].querySelectorAll('.card');
 	
-  let lastTrail = nextCards[0];
+  let lastTrailingCard = nextCardGroups[0];
 
-  lastTrail.addEventListener('transitionend',() => {
+  lastTrailingCard.addEventListener('transitionend',() => {
 		lastScrollPosition = scrollOffset;
 		checkForCardSwap();
 	},{once: true});
@@ -66,11 +67,11 @@ function showNextCard() {
 function showPrevCard() {
   stopAnimationFrame()
 
-  let prevCards = cardGroups[getPrevIndex()].querySelectorAll('.card');
+  let prevCardGroups = cardGroups[getPrevIndex()].querySelectorAll('.card');
 
-  let lastTrail = prevCards[prevCards.length - 1];
+  let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
-	lastTrail.addEventListener('transitionend',() => {
+	lastTrailingCard.addEventListener('transitionend',() => {
 		lastScrollPosition = scrollOffset;
 		checkForCardSwap();
 	},{once: true});
@@ -100,57 +101,38 @@ function showPrevCard() {
 }
 
 function getPrevIndex() {
-  let totalCards = cardGroups.length;
-  let prevIndex = currentIndex - 1;
-
-  if (prevIndex >= 0) {
-    return prevIndex;
+  if (currentIndex > 0) {
+    return currentIndex - 1;
   } else {
     return totalCards - 1;
   }
 }
 
 function getNextIndex() {
-  let totalCards = cardGroups.length;
-  let temporaryNextIndex = currentIndex + 1;
-
-  if (temporaryNextIndex < totalCards) {
-    return temporaryNextIndex;
+  if (currentIndex < totalCards - 1) {
+    return currentIndex + 1;
   } else {
     return 0;
   }
 }
 
 function setCardHidden(card) {
-  card.classList.remove("visible");
-  card.classList.remove("resee");
-  card.classList.remove("seen");
-  card.classList.add("hidden");
-  card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
+  card.classList.remove("visible","resee","seen");
+  card.classList.add("card","hidden");
 }
 
 function setCardVisible(card) {
-  card.classList.remove("hidden");
-  card.classList.remove("seen");
-  card.classList.remove("resee");
-  card.classList.remove("pristine");
-  card.classList.add("visible");
+  card.classList.remove("hidden", "seen", "resee");
+  card.classList.add("card","visible");
 }
 
 function setCardResee(card) {
-  card.style = "";
-  card.classList.remove("seen");
-  card.classList.remove("hidden");
-  card.classList.remove("visible");
-  card.classList.remove("pristine");
+  card.classList.remove("seen","hidden","visible");
   card.classList.add("resee");
 }
 
 function setCardSeen(card) {
-  card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
-  card.classList.remove("visible");
-  card.classList.remove("hidden");
-  card.classList.remove("resee");
+  card.classList.remove("visible","hidden","resee");
   card.classList.add("seen");
 }
 
