@@ -12,7 +12,7 @@ let currentIndex = cardGroups.length - 1;
 
 addEventListener("scroll", function () {
   scrollOffset = window.pageYOffset;
-  // todo: passive and active
+  // passive:true is not needed. passive:true is use during touch events. passive:true is default on touch event
 });
 
 function checkForCardSwap() {
