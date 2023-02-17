@@ -59,19 +59,19 @@ body{
     border: 5px solid yellow;
 }
 
-.card:nth-child(1).visible {
+.card:nth-child(1).fade-in-from-back {
     transition-delay: .8s;
 }
 
-.card:nth-child(1).hidden {
+.card:nth-child(1).fade-out-to-back {
     transition-delay: .0s;
 }
 
-.card:nth-child(1).seen {
+.card:nth-child(1).fade-out-to-front {
     transition-delay: .5s;
 }
 
-.card:nth-child(1).resee {
+.card:nth-child(1).fade-in-from-front {
     transition-delay: 1.0s;
 }
 
@@ -82,22 +82,21 @@ body{
     border: 5px solid yellow;
 }
 
-.card:nth-child(2).visible {
+.card:nth-child(2).fade-in-from-back {
     transition-delay: .4s;
 }
 
-.card:nth-child(2).hidden {
+.card:nth-child(2).fade-out-to-back {
     transition-delay: .1s;
 }
 
-.card:nth-child(2).seen {
+.card:nth-child(2).fade-out-to-front {
     transition-delay: .4s;
 }
 
-.card:nth-child(2).resee {
+.card:nth-child(2).fade-in-from-front {
     transition-delay: 1.1s;
 }
-
 
 /* ******************* */
 .card:nth-child(3){
@@ -105,20 +104,20 @@ body{
     border: 5px solid yellow;
 }
 
-.card:nth-child(3).visible {
+.card:nth-child(3).fade-in-from-back {
     /* transition: all 1.0s ease-in .8s; */
     transition-delay: .2s;
 }
 
-.card:nth-child(3).hidden {
+.card:nth-child(3).fade-out-to-back {
     transition-delay: .2s;
 }
 
-.card:nth-child(3).seen {
+.card:nth-child(3).fade-out-to-front {
     transition-delay:  .3s;
 }
 
-.card:nth-child(3).resee {
+.card:nth-child(3).fade-in-from-front {
     transition-delay: 1.2s;
 }
 
@@ -128,32 +127,22 @@ body{
     border: 5px solid yellow;
 }
 
-.card:nth-child(4).visible {
+.card:nth-child(4).fade-in-from-back {
     transition-delay: .0s;
 }
 
-.card:nth-child(4).hidden {
+.card:nth-child(4).fade-out-to-back {
     transition-delay: .3s;
 }
-.card:nth-child(4).seen {
+.card:nth-child(4).fade-out-to-front {
     transition-delay: .2s;
 
 }
-.card:nth-child(4).resee {
+.card:nth-child(4).fade-in-from-front {
     transition-delay: 1.3s;
 }
 
-/* 
-
-fade in from back
-fade in from front
-
-fade out to front
-fade out to back
-
-*/
-
-.hidden { /* fade-out-to-back*/
+.fade-out-to-back {
     scale: 0;
     transform: rotateX(180deg);
     opacity: 0;
@@ -164,8 +153,7 @@ fade out to back
     translate: 0 calc(100vh + 100px);
 }
 
-
-.visible{
+.fade-in-from-back {
     transition-property: all;
     transition-duration: 1.0s;
     transition-timing-function: linear;
@@ -173,7 +161,7 @@ fade out to back
     scale: 1;
 }
 
-.seen {
+.fade-out-to-front {
     opacity: 0;
     scale: 1.4;
     transform-origin: bottom;
@@ -184,7 +172,7 @@ fade out to back
     translate: 0 calc(100vh + 100px);
 }
 
-.resee {
+.fade-in-from-front {
     opacity: 1;
     scale: 1;
     translate: 0 0px;

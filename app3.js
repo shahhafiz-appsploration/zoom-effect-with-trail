@@ -43,20 +43,20 @@ function showNextCard() {
 		const cards = cardGroups[index].querySelectorAll('.card');
 		if(index === currentIndex){
 			cards.forEach(c => {
-				setCardSeen(c)
+				fadeOutToFront(c)
 			})
 			continue;
 		} 
 
 		if(index === getNextIndex()){
 			cards.forEach(c => {
-				setCardVisible(c)
+				fadeInFromBack(c)
 			})
 			continue;
 		}
 
 		cards.forEach(c => {
-			setCardHidden(c)
+			fadeOutToBack(c)
 		})
 	}
 
@@ -66,6 +66,8 @@ function showNextCard() {
 
 function showPrevCard() {
   cancelAnimationFrame(animationFrameId);
+
+  let prevCardGroups = cardGroups[getPrevIndex()].querySelectorAll('.card');
 
   let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
@@ -78,20 +80,20 @@ function showPrevCard() {
 		const cards = cardGroups[index].querySelectorAll('.card');
 		if(index === currentIndex){
 			cards.forEach(c => {
-				setCardHidden(c)
+				fadeOutToBack(c)
 			})
 			continue;
 		} 
 
 		if(index === getPrevIndex()){
 			cards.forEach(c => {
-				setCardResee(c)
+				fadeInFromFront(c)
 			})
 			continue;
 		}
 
 		cards.forEach(c => {
-			setCardSeen(c)
+			fadeOutToFront(c)
 		})
 	}
 
@@ -114,28 +116,28 @@ function getNextIndex() {
   }
 }
 
-function setCardHidden(card) {
-  card.classList.remove("visible","resee","seen");
-  card.classList.add("card","hidden");
+function fadeOutToBack(card) {
+  card.classList.remove("fade-in-from-back","fade-in-from-front","fade-out-to-front");
+  card.classList.add("card","fade-out-to-back");
 }
 
-function setCardVisible(card) {
-  card.classList.remove("hidden", "seen", "resee");
-  card.classList.add("card","visible");
+function fadeInFromBack(card) {
+  card.classList.remove("fade-out-to-back", "fade-out-to-front", 'fade-in-from-front');
+  card.classList.add("card","fade-in-from-back");
 }
 
-function setCardResee(card) {
-  card.classList.remove("seen","hidden","visible");
-  card.classList.add("resee");
+function fadeInFromFront(card) {
+  card.classList.remove("fade-out-to-front","fade-out-to-back","fade-in-from-back");
+  card.classList.add('fade-in-from-front');
 }
 
-function setCardSeen(card) {
-  card.classList.remove("visible","hidden","resee");
-  card.classList.add("seen");
+function fadeOutToFront(card) {
+  card.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
+  card.classList.add("fade-out-to-front");
 }
 
 allCards.forEach(c => {
-	setCardHidden(c)
+	fadeOutToBack(c)
 })
 
 checkForCardSwap();
