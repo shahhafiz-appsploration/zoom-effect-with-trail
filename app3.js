@@ -28,8 +28,8 @@ function checkForCardSwap() {
 }
 
 function showNextCard() {
-	stopAnimationFrame()
-	
+  cancelAnimationFrame(animationFrameId);
+  	
   let nextCardGroups = cardGroups[getNextIndex()].querySelectorAll('.card');
 	
   let lastTrailingCard = nextCardGroups[0];
@@ -65,9 +65,7 @@ function showNextCard() {
 }
 
 function showPrevCard() {
-  stopAnimationFrame()
-
-  let prevCardGroups = cardGroups[getPrevIndex()].querySelectorAll('.card');
+  cancelAnimationFrame(animationFrameId);
 
   let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
@@ -134,11 +132,6 @@ function setCardResee(card) {
 function setCardSeen(card) {
   card.classList.remove("visible","hidden","resee");
   card.classList.add("seen");
-}
-
-function stopAnimationFrame() {
-  console.log("stopAnimationFrame, ", animationFrameId);
-  cancelAnimationFrame(animationFrameId);
 }
 
 allCards.forEach(c => {
