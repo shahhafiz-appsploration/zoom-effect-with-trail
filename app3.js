@@ -29,8 +29,9 @@ function checkForCardSwap() {
 
 function showNextCard() {
   cancelAnimationFrame(animationFrameId);
+  const nextIndex = getNextIndex();
   	
-  let nextCardGroups = cardGroups[getNextIndex()].querySelectorAll('.card');
+  let nextCardGroups = cardGroups[nextIndex].querySelectorAll('.card');
 	
   let lastTrailingCard = nextCardGroups[0];
 
@@ -48,7 +49,7 @@ function showNextCard() {
 			continue;
 		} 
 
-		if(index === getNextIndex()){
+		if(index === nextIndex){
 			cards.forEach(c => {
 				fadeInFromBack(c)
 			})
@@ -60,14 +61,14 @@ function showNextCard() {
 		})
 	}
 
-  currentIndex = this.getNextIndex();
-
+  currentIndex = nextIndex;
 }
 
 function showPrevCard() {
+  const prevIndex = getPrevIndex();
   cancelAnimationFrame(animationFrameId);
 
-  let prevCardGroups = cardGroups[getPrevIndex()].querySelectorAll('.card');
+  let prevCardGroups = cardGroups[prevIndex].querySelectorAll('.card');
 
   let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
@@ -85,7 +86,7 @@ function showPrevCard() {
 			continue;
 		} 
 
-		if(index === getPrevIndex()){
+		if(index === prevIndex){
 			cards.forEach(c => {
 				fadeInFromFront(c)
 			})
@@ -97,7 +98,7 @@ function showPrevCard() {
 		})
 	}
 
-  currentIndex = this.getPrevIndex();
+  currentIndex = prevIndex;
 }
 
 function getPrevIndex() {
