@@ -170,7 +170,7 @@ img.card {
 }
 
 .fade-in-from-back {
-    animation: fifb 1s ease-out forwards;
+    animation: fifb 1.5s ease-out forwards;
 }
 
 @keyframes fifb {
