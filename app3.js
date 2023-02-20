@@ -10,6 +10,8 @@ let scrollOffset = 0;
 
 let currentIndex = cardGroups.length - 1;
 
+let isFirstCard = true;
+
 addEventListener("scroll", function () {
   scrollOffset = window.pageYOffset;
   // passive:true is not needed. passive:true is use during touch events. passive:true is default on touch event
@@ -35,7 +37,7 @@ function showNextCard() {
 	
   let lastTrailingCard = nextCardGroups[0];
 
-  lastTrailingCard.addEventListener('transitionend',() => {
+  lastTrailingCard.addEventListener('animationend',() => {
 		lastScrollPosition = scrollOffset;
 		checkForCardSwap();
 	},{once: true});
@@ -43,11 +45,15 @@ function showNextCard() {
 	for (let index = 0; index < cardGroups.length; index++) {
 		const cards = cardGroups[index].querySelectorAll('.card');
 		if(index === currentIndex){
+			if(isFirstCard){
+				isFirstCard = false;
+				continue;
+			}
 			cards.forEach(c => {
-				fadeOutToFront(c)
+				fadeOutToFront(c);
 			})
 			continue;
-		} 
+		}
 
 		if(index === nextIndex){
 			cards.forEach(c => {
@@ -55,10 +61,6 @@ function showNextCard() {
 			})
 			continue;
 		}
-
-		cards.forEach(c => {
-			fadeOutToBack(c)
-		})
 	}
 
   currentIndex = nextIndex;
@@ -72,7 +74,7 @@ function showPrevCard() {
 
   let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
-	lastTrailingCard.addEventListener('transitionend',() => {
+	lastTrailingCard.addEventListener('animationend',() => {
 		lastScrollPosition = scrollOffset;
 		checkForCardSwap();
 	},{once: true});
@@ -92,10 +94,6 @@ function showPrevCard() {
 			})
 			continue;
 		}
-
-		cards.forEach(c => {
-			fadeOutToFront(c)
-		})
 	}
 
   currentIndex = prevIndex;
@@ -136,9 +134,5 @@ function fadeOutToFront(card) {
   card.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
   card.classList.add("fade-out-to-front");
 }
-
-allCards.forEach(c => {
-	fadeOutToBack(c)
-})
 
 checkForCardSwap();
