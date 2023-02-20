@@ -43,25 +43,13 @@ body{
 
 .card {
     visibility: hidden;
-    width: 80%;
+    width: 90%;
     position: absolute;
     border-radius: 12px; /*to be remove*/
     box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 30%);
     transform-origin: top;
     
-
     border: none !important;
-}
-
-/* .hidden {
-    visibility: hidden;
-} */
-
-img.card {
-    /* height: 100%; */
-    /* width: auto; */
-    width: 90%;
-    height: auto;
 }
 
 .card:nth-child(1){
