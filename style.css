@@ -174,7 +174,7 @@ body{
 @keyframes fifb {
     from {
         visibility: hidden;
-        transform: rotateX(90deg) translateY(-300px) translateZ(calc(-100vh - 100px));
+        transform: rotateX(170deg) translateY(-300px) translateZ(calc(-100vh - 100px));
         scale: 0.3;
     }
     to {
