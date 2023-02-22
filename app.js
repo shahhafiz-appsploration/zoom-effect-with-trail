@@ -32,6 +32,7 @@ function showNextCard() {
   const nextIndex = getNextIndex();
   	
   let nextCardGroups = cardGroups[nextIndex].querySelectorAll('.card');
+  let currentCardGroups = currentIndex >= 0 ? cardGroups[currentIndex].querySelectorAll('.card') : [];
 	
   let lastTrailingCard = nextCardGroups[0];
 
@@ -44,25 +45,13 @@ function showNextCard() {
 		checkForCardSwap();
 	},{once: true});
 
-	for (let index = 0; index < cardGroups.length; index++) {
-		const cards = cardGroups[index].querySelectorAll('.card');
-		if(index === currentIndex){
-			if(currentIndex === -1){
-				continue;
-			}
-			cards.forEach(c => {
-				fadeOutToFront(c);
-			})
-			continue;
-		}
+	currentCardGroups.forEach(c => {
+		fadeOutToFront(c);
+	})
 
-		if(index === nextIndex){
-			cards.forEach(c => {
-				fadeInFromBack(c)
-			})
-			continue;
-		}
-	}
+	nextCardGroups.forEach(c => {
+		fadeInFromBack(c)
+	})	
 }
 
 function showPrevCard() {
@@ -70,6 +59,7 @@ function showPrevCard() {
   cancelAnimationFrame(animationFrameId);
 
   let prevCardGroups = cardGroups[prevIndex].querySelectorAll('.card');
+  let currentCardGroups = cardGroups[currentIndex].querySelectorAll('.card');
 
   let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
@@ -82,22 +72,13 @@ function showPrevCard() {
 		checkForCardSwap();
 	},{once: true});
 
-	for (let index = 0; index < cardGroups.length; index++) {
-		const cards = cardGroups[index].querySelectorAll('.card');
-		if(index === currentIndex){
-			cards.forEach(c => {
-				fadeOutToBack(c)
-			})
-			continue;
-		} 
+	currentCardGroups.forEach(c => {
+		fadeOutToBack(c)
+	})
 
-		if(index === prevIndex){
-			cards.forEach(c => {
-				fadeInFromFront(c)
-			})
-			continue;
-		}
-	}
+	prevCardGroups.forEach(c => {
+		fadeInFromFront(c)
+	})
 }
 
 function getPrevIndex() {
