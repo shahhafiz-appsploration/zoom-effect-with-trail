@@ -1,106 +1,141 @@
-// hidden -> visible -> seen -> resee -> hiddden
-
-const cardGroups = document.querySelectorAll('.card-group')
-const allCards = document.querySelectorAll('.cards')
-const adFormat = document.querySelector('.ad-format')
-const cards1 = cardGroups[0].querySelectorAll('.card')
-const cards2 = cardGroups[1].querySelectorAll('.card')
-const cards3 = cardGroups[2].querySelectorAll('.card')
-
-
+let animationFrameId = undefined;
+const adFormat = document.querySelector(".ad-format");
+const allCards = document.querySelectorAll('.card')
+const cardGroups = document.querySelectorAll(".card-group");
+const totalCards = cardGroups.length;
 const threshold = 300;
-const threshold2 = 600;
-const threshold3 = 900;
 
-const card1IsShown = false;
-const card2IsShown = false;
-const card3IsShown = false;
+let lastScrollPosition = 0;
+let scrollOffset = 0;
 
-allCards.forEach(card => {
-    setCardHidden(card)
-})
+let currentIndex = cardGroups.length - 1;
 
-addEventListener("scroll", (event) => {
-    const scrollOffset = window.pageYOffset
-    console.log(scrollOffset)
+let isFirstCard = true;
 
-    if(scrollOffset < threshold){
-        cards1.forEach(card => {
-            card.classList.remove('visible')
-            card.classList.remove('resee')
-            setCardHidden(card)
-        })
-    }
-    else if(scrollOffset >= threshold && scrollOffset < threshold2){
-        console.log('show 1')
-        cards1.forEach(card => {
-            if(card.classList.contains('hidden')){
-                setCardVisible(card)
-            }
+console.log(allCards[0].clientHeight)
+// adFormat.style.height = allCards[0].height
 
-            if(card.classList.contains('seen')){
-                setCardResee(card)
-            }
-        })
+addEventListener("scroll", function () {
+  scrollOffset = window.pageYOffset;
+  // passive:true is not needed. passive:true is use during touch events. passive:true is default on touch event
+});
 
-        cards2.forEach(card => {
-            setCardHidden(card)
-        })
-        
-    } else if(scrollOffset >= threshold2 && scrollOffset < threshold3){
-        console.log('show 2')
-        cards1.forEach(card => {
-            setCardSeen(card)
-            
-        })
-
-        cards2.forEach(card => {
-            if(card.classList.contains('hidden')){
-                setCardVisible(card)
-            }
-
-            if(card.classList.contains('seen')){
-                setCardResee(card)
-            }
-        })
-
-        cards3.forEach(card => {
-            setCardHidden(card)
-        })
-    } else if(scrollOffset >= threshold3){
-        console.log('show 3')
-        
-        cards2.forEach(card => {
-            setCardSeen(card)
-        })
-
-        cards3.forEach(card => {
-            setCardVisible(card)
-        })
-    }
-})
-
-function setCardHidden(card){
-    card.classList.remove('visible')
-    card.classList.remove('resee')
-    card.classList.add('hidden');
-    card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
+function checkForCardSwap() {
+  const dY = scrollOffset - lastScrollPosition;
+  console.log('dy',dY);
+  if (dY >= threshold) {
+    showNextCard();
+  } else if (dY <= -threshold) {
+    showPrevCard();
+  } else {
+    animationFrameId = requestAnimationFrame(checkForCardSwap);
+  }
 }
 
-function setCardVisible(card){
-    card.classList.remove('hidden');
-    card.classList.remove('hidden');
-    card.classList.add('visible')
+function showNextCard() {
+  cancelAnimationFrame(animationFrameId);
+  const nextIndex = getNextIndex();
+  	
+  let nextCardGroups = cardGroups[nextIndex].querySelectorAll('.card');
+	
+  let lastTrailingCard = nextCardGroups[0];
+
+  lastTrailingCard.addEventListener('animationend',() => {
+		lastScrollPosition = scrollOffset;
+		checkForCardSwap();
+	},{once: true});
+
+	for (let index = 0; index < cardGroups.length; index++) {
+		const cards = cardGroups[index].querySelectorAll('.card');
+		if(index === currentIndex){
+			if(isFirstCard){
+				isFirstCard = false;
+				continue;
+			}
+			cards.forEach(c => {
+				fadeOutToFront(c);
+			})
+			continue;
+		}
+
+		if(index === nextIndex){
+			cards.forEach(c => {
+				fadeInFromBack(c)
+			})
+			continue;
+		}
+	}
+
+  currentIndex = nextIndex;
 }
 
-function setCardSeen(card){
-    card.style.translate = `0 ${adFormat.clientHeight + 100}px`;
-    card.classList.remove('visible')
-    card.classList.add('seen');
+function showPrevCard() {
+  const prevIndex = getPrevIndex();
+  cancelAnimationFrame(animationFrameId);
+
+  let prevCardGroups = cardGroups[prevIndex].querySelectorAll('.card');
+
+  let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
+
+	lastTrailingCard.addEventListener('animationend',() => {
+		lastScrollPosition = scrollOffset;
+		checkForCardSwap();
+	},{once: true});
+
+	for (let index = 0; index < cardGroups.length; index++) {
+		const cards = cardGroups[index].querySelectorAll('.card');
+		if(index === currentIndex){
+			cards.forEach(c => {
+				fadeOutToBack(c)
+			})
+			continue;
+		} 
+
+		if(index === prevIndex){
+			cards.forEach(c => {
+				fadeInFromFront(c)
+			})
+			continue;
+		}
+	}
+
+  currentIndex = prevIndex;
 }
 
-function setCardResee(card){
-    card.style = ''
-    card.classList.remove('seen')
-    card.classList.add('resee')
+function getPrevIndex() {
+  if (currentIndex > 0) {
+    return currentIndex - 1;
+  } else {
+    return totalCards - 1;
+  }
 }
+
+function getNextIndex() {
+  if (currentIndex < totalCards - 1) {
+    return currentIndex + 1;
+  } else {
+    return 0;
+  }
+}
+
+function fadeOutToBack(card) {
+  card.classList.remove("fade-in-from-back","fade-in-from-front","fade-out-to-front");
+  card.classList.add("card","fade-out-to-back");
+}
+
+function fadeInFromBack(card) {
+  card.classList.remove("fade-out-to-back", "fade-out-to-front", 'fade-in-from-front');
+  card.classList.add("card","fade-in-from-back");
+}
+
+function fadeInFromFront(card) {
+  card.classList.remove("fade-out-to-front","fade-out-to-back","fade-in-from-back");
+  card.classList.add('fade-in-from-front');
+}
+
+function fadeOutToFront(card) {
+  card.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
+  card.classList.add("fade-out-to-front");
+}
+
+checkForCardSwap();
