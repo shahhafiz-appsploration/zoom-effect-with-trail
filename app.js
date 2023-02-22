@@ -10,9 +10,6 @@ let scrollOffset = 0;
 
 let currentIndex = -1;
 
-console.log(allCards[0].clientHeight)
-// adFormat.style.height = allCards[0].height
-
 addEventListener("scroll", function () {
   scrollOffset = window.pageYOffset;
   // passive:true is not needed. passive:true is use during touch events. passive:true is default on touch event
