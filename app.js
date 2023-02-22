@@ -8,9 +8,7 @@ const threshold = 300;
 let lastScrollPosition = 0;
 let scrollOffset = 0;
 
-let currentIndex = cardGroups.length - 1;
-
-let isFirstCard = true;
+let currentIndex = -1;
 
 console.log(allCards[0].clientHeight)
 // adFormat.style.height = allCards[0].height
@@ -41,15 +39,18 @@ function showNextCard() {
   let lastTrailingCard = nextCardGroups[0];
 
   lastTrailingCard.addEventListener('animationend',() => {
+		cardSwappedCallback(nextIndex, currentIndex)
+
+		currentIndex = nextIndex;
 		lastScrollPosition = scrollOffset;
+
 		checkForCardSwap();
 	},{once: true});
 
 	for (let index = 0; index < cardGroups.length; index++) {
 		const cards = cardGroups[index].querySelectorAll('.card');
 		if(index === currentIndex){
-			if(isFirstCard){
-				isFirstCard = false;
+			if(currentIndex === -1){
 				continue;
 			}
 			cards.forEach(c => {
@@ -65,8 +66,6 @@ function showNextCard() {
 			continue;
 		}
 	}
-
-  currentIndex = nextIndex;
 }
 
 function showPrevCard() {
@@ -78,7 +77,11 @@ function showPrevCard() {
   let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
 
 	lastTrailingCard.addEventListener('animationend',() => {
+		cardSwappedCallback(prevIndex, currentIndex)
+		
+		currentIndex = prevIndex;
 		lastScrollPosition = scrollOffset;
+
 		checkForCardSwap();
 	},{once: true});
 
@@ -98,8 +101,6 @@ function showPrevCard() {
 			continue;
 		}
 	}
-
-  currentIndex = prevIndex;
 }
 
 function getPrevIndex() {
@@ -136,6 +137,10 @@ function fadeInFromFront(card) {
 function fadeOutToFront(card) {
   card.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
   card.classList.add("fade-out-to-front");
+}
+
+function cardSwappedCallback(current, prev){
+	console.log(`showing card ${current}, previous was card ${prev}`)
 }
 
 checkForCardSwap();
