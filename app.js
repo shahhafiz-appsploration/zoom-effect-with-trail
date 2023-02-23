@@ -8,16 +8,18 @@ const threshold = 300;
 let lastScrollPosition = 0;
 let scrollOffset = 0;
 
-let currentIndex = -1;
+let isFirstCard = true;
+let currentIndex = cardGroups.length - 1;
+
+console.log(`${cardGroups.length} cards`)
 
 addEventListener("scroll", function () {
   scrollOffset = window.pageYOffset;
-  // passive:true is not needed. passive:true is use during touch events. passive:true is default on touch event
 });
 
 function checkForCardSwap() {
   const dY = scrollOffset - lastScrollPosition;
-  console.log('dy',dY);
+  // console.log('dy',dY);
   if (dY >= threshold) {
     showNextCard();
   } else if (dY <= -threshold) {
@@ -32,8 +34,12 @@ function showNextCard() {
   const nextIndex = getNextIndex();
   	
   let nextCardGroups = cardGroups[nextIndex].querySelectorAll('.card');
-  let currentCardGroups = currentIndex >= 0 ? cardGroups[currentIndex].querySelectorAll('.card') : [];
+  let currentCardGroups = isFirstCard ? [] : cardGroups[currentIndex].querySelectorAll('.card');
 	
+  if(isFirstCard){
+    isFirstCard = false;
+  }
+
   let lastTrailingCard = nextCardGroups[0];
 
   lastTrailingCard.addEventListener('animationend',() => {
@@ -117,8 +123,10 @@ function fadeOutToFront(card) {
   card.classList.add("fade-out-to-front");
 }
 
-function cardSwappedCallback(current, prev){
-	console.log(`showing card ${current}, previous was card ${prev}`)
+function cardSwappedCallback(currentIndex, prevIndex){
+  const currentCard = currentIndex + 1;
+  const prevCard = prevIndex + 1;
+	console.log(`showing card ${currentCard}, previous was card ${prevCard}`)
 }
 
 checkForCardSwap();
