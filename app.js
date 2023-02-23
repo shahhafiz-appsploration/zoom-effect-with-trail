@@ -1,7 +1,8 @@
-let animationFrameId = undefined;
-const adFormat = document.querySelector(".ad-format");
-const allCards = document.querySelectorAll('.card')
-const cardGroups = document.querySelectorAll(".card-group");
+let animationFrameId = null;
+let adFormat = document.querySelector(".ad-format");
+let allCards = document.querySelectorAll('.card')
+let cardGroups = document.querySelectorAll(".card-group");
+
 const totalCards = cardGroups.length;
 const threshold = 300;
 
@@ -90,17 +91,17 @@ function showPrevCard() {
 function getPrevIndex() {
   if (currentIndex > 0) {
     return currentIndex - 1;
-  } else {
-    return totalCards - 1;
-  }
+  } 
+   
+  return totalCards - 1;
 }
 
 function getNextIndex() {
   if (currentIndex < totalCards - 1) {
     return currentIndex + 1;
-  } else {
-    return 0;
-  }
+  } 
+    
+  return 0;
 }
 
 function fadeOutToBack(card) {
