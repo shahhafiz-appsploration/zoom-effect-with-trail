@@ -34,14 +34,10 @@ function showNextCard() {
   cancelAnimationFrame(animationFrameId);
   const nextIndex = getNextIndex();
   	
-  let nextCardGroups = cardGroups[nextIndex].querySelectorAll('.card');
-  let currentCardGroups = isFirstCard ? [] : cardGroups[currentIndex].querySelectorAll('.card');
+  let nextCardGroups = cardGroups[nextIndex];
+  let currentCardGroups = cardGroups[currentIndex];
 	
-  if(isFirstCard){
-    isFirstCard = false;
-  }
-
-  let lastTrailingCard = nextCardGroups[0];
+  let lastTrailingCard = nextCardGroups.querySelectorAll('.card')[0];
 
   lastTrailingCard.addEventListener('animationend',() => {
 		cardSwappedCallback(nextIndex, currentIndex)
@@ -52,23 +48,25 @@ function showNextCard() {
 		checkForCardSwap();
 	},{once: true});
 
-	currentCardGroups.forEach(c => {
-		fadeOutToFront(c);
-	})
 
-	nextCardGroups.forEach(c => {
-		fadeInFromBack(c)
-	})	
+  if(isFirstCard){
+    isFirstCard = false;
+  } else {
+    fadeOutToFront(currentCardGroups);
+  }
+
+  fadeInFromBack(nextCardGroups)
 }
 
 function showPrevCard() {
   const prevIndex = getPrevIndex();
   cancelAnimationFrame(animationFrameId);
 
-  let prevCardGroups = cardGroups[prevIndex].querySelectorAll('.card');
-  let currentCardGroups = cardGroups[currentIndex].querySelectorAll('.card');
+  let prevCardGroups = cardGroups[prevIndex];
+  let currentCardGroups = cardGroups[currentIndex];
 
-  let lastTrailingCard = prevCardGroups[prevCardGroups.length - 1];
+  let prevCards = prevCardGroups.querySelectorAll('.card');
+  let lastTrailingCard = prevCards[prevCards.length - 1];
 
 	lastTrailingCard.addEventListener('animationend',() => {
 		cardSwappedCallback(prevIndex, currentIndex)
@@ -79,13 +77,9 @@ function showPrevCard() {
 		checkForCardSwap();
 	},{once: true});
 
-	currentCardGroups.forEach(c => {
-		fadeOutToBack(c)
-	})
+  fadeOutToBack(currentCardGroups)
 
-	prevCardGroups.forEach(c => {
-		fadeInFromFront(c)
-	})
+  fadeInFromFront(prevCardGroups)
 }
 
 function getPrevIndex() {
@@ -104,24 +98,23 @@ function getNextIndex() {
   return 0;
 }
 
-function fadeOutToBack(card) {
-  card.classList.remove("fade-in-from-back","fade-in-from-front","fade-out-to-front");
-  card.classList.add("card","fade-out-to-back");
+function fadeOutToBack(cardGroup) {
+  cardGroup.classList.remove("fade-in-from-back","fade-in-from-front","fade-out-to-front");
+  cardGroup.classList.add("fade-out-to-back");
 }
 
-function fadeInFromBack(card) {
-  card.classList.remove("fade-out-to-back", "fade-out-to-front", 'fade-in-from-front');
-  card.classList.add("card","fade-in-from-back");
+function fadeInFromBack(cardGroup) {
+  cardGroup.classList.remove("fade-out-to-back", "fade-out-to-front", 'fade-in-from-front');
+  cardGroup.classList.add("fade-in-from-back");
+}
+function fadeInFromFront(cardGroup) {
+  cardGroup.classList.remove("fade-out-to-front","fade-out-to-back","fade-in-from-back");
+  cardGroup.classList.add('fade-in-from-front');
 }
 
-function fadeInFromFront(card) {
-  card.classList.remove("fade-out-to-front","fade-out-to-back","fade-in-from-back");
-  card.classList.add('fade-in-from-front');
-}
-
-function fadeOutToFront(card) {
-  card.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
-  card.classList.add("fade-out-to-front");
+function fadeOutToFront(cardGroup) {
+  cardGroup.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
+  cardGroup.classList.add("fade-out-to-front");
 }
 
 function cardSwappedCallback(currentIndex, prevIndex){
