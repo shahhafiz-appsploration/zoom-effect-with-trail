@@ -27,6 +27,25 @@ body {
   height: 10%;
 }
 
+.innity-apps-turnstile-video-background{
+    height: 100%;
+    width: auto;
+}
+
+.innity-apps-turnstile-video{
+    width: auto;
+    height: 100%;
+    position: absolute;
+}
+
+.innity-apps-turnstile-video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: 100%;
+}
+
 .innity-apps-turnstile-card-group {
   display: flex;
   justify-content: center;
@@ -65,6 +84,10 @@ body {
 }
 
 /* Fade In From Back Start */
+.innity-apps-turnstile-fade-in-from-back{
+    z-index: 1;
+}
+
 .innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card {
   animation: innity-apps-turnstile-fifb 1.5s ease-out forwards;
 }
@@ -138,6 +161,10 @@ body {
 
 
 /* Fade In From Front Start */
+.innity-apps-turnstile-fade-in-from-front{
+    z-index: 1;
+}
+
 .innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card{
   visibility: hidden;
   animation: innity-apps-turnstile-fiff 1s ease-out forwards;
