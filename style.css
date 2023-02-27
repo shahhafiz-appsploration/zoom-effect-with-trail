@@ -18,16 +18,16 @@ body {
   bottom: 0;
 }
 
-.content {
+.innity-apps-turnstile-content {
   height: 90%;
   position: relative;
 }
 
-.footer {
+.innity-apps-turnstile-footer {
   height: 10%;
 }
 
-.card-group {
+.innity-apps-turnstile-card-group {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +37,7 @@ body {
   perspective: 900px;
 }
 
-.card {
+.innity-apps-turnstile-card {
   visibility: hidden;
   height: 100%;
   width: auto;
@@ -48,28 +48,28 @@ body {
   border: none !important;
 }
 
-.card:nth-child(1) {
+.innity-apps-turnstile-card:nth-child(1) {
   opacity: 0.1;
 }
 
-.card:nth-child(2) {
+.innity-apps-turnstile-card:nth-child(2) {
   opacity: 0.3;
 }
 
-.card:nth-child(3) {
+.innity-apps-turnstile-card:nth-child(3) {
   opacity: 0.6;
 }
 
-.card:nth-child(4) {
+.innity-apps-turnstile-card:nth-child(4) {
   opacity: 1;
 }
 
 /* Fade In From Back Start */
-.fade-in-from-back .card {
-  animation: fifb 1.5s ease-out forwards;
+.innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card {
+  animation: innity-apps-turnstile-fifb 1.5s ease-out forwards;
 }
 
-@keyframes fifb {
+@keyframes innity-apps-turnstile-fifb {
   from {
     visibility: hidden;
     transform: rotateX(100deg) translateY(-300px)
@@ -83,31 +83,31 @@ body {
   }
 }
 
-.fade-in-from-back .card:nth-child(1) {
+.innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card:nth-child(1) {
   animation-delay: 0.8s;
 }
 
-.fade-in-from-back .card:nth-child(2) {
+.innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card:nth-child(2) {
   animation-delay: 0.7s;
 }
 
-.fade-in-from-back .card:nth-child(3) {
+.innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card:nth-child(3) {
   animation-delay: 0.6s;
 }
 
-.fade-in-from-back .card:nth-child(4) {
+.innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card:nth-child(4) {
   animation-delay: 0.5s;
 }
 /* Fade In From Back End */
 
 
 /* Fade Out To Front Start */
-.fade-out-to-front .card{
+.innity-apps-turnstile-fade-out-to-front .innity-apps-turnstile-card{
   visibility: visible;
-  animation: fotf 1s ease-in forwards;
+  animation: innity-apps-turnstile-fotf 1s ease-in forwards;
 }
 
-@keyframes fotf {
+@keyframes innity-apps-turnstile-fotf {
   from {
     visibility: visible;
     transform: rotateX(0deg) translateY(0);
@@ -119,31 +119,31 @@ body {
   }
 }
 
-.fade-out-to-front .card:nth-child(1) {
+.innity-apps-turnstile-fade-out-to-front .innity-apps-turnstile-card:nth-child(1) {
   animation-delay: 0.5s;
 }
 
-.fade-out-to-front .card:nth-child(2) {
+.innity-apps-turnstile-fade-out-to-front .innity-apps-turnstile-card:nth-child(2) {
   animation-delay: 0.4s;
 }
 
-.fade-out-to-front .card:nth-child(3) {
+.innity-apps-turnstile-fade-out-to-front .innity-apps-turnstile-card:nth-child(3) {
   animation-delay: 0.3s;
 }
 
-.fade-out-to-front .card:nth-child(4) {
+.innity-apps-turnstile-fade-out-to-front .innity-apps-turnstile-card:nth-child(4) {
   animation-delay: 0.2s;
 }
 /* Fade Out To Front End */
 
 
 /* Fade In From Front Start */
-.fade-in-from-front .card{
+.innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card{
   visibility: hidden;
-  animation: fiff 1s ease-out forwards;
+  animation: innity-apps-turnstile-fiff 1s ease-out forwards;
 }
 
-@keyframes fiff {
+@keyframes innity-apps-turnstile-fiff {
   from {
     visibility: hidden;
     transform: rotateX(-90deg) translateY(200px)
@@ -155,30 +155,30 @@ body {
   }
 }
 
-.fade-in-from-front .card:nth-child(1) {
+.innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card:nth-child(1) {
   animation-delay: 0.5s;
 }
 
-.fade-in-from-front .card:nth-child(2) {
+.innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card:nth-child(2) {
   animation-delay: 0.6s;
 }
 
-.fade-in-from-front .card:nth-child(3) {
+.innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card:nth-child(3) {
   animation-delay: 0.7s;
 }
 
-.fade-in-from-front .card:nth-child(4) {
+.innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card:nth-child(4) {
   animation-delay: 0.8s;
 }
 /* Fade In From Front End */
 
 /* Fade Out To Back Start */
-.fade-out-to-back .card{
+.innity-apps-turnstile-fade-out-to-back .innity-apps-turnstile-card{
   visibility: visible;
-  animation: fotb 1s ease-in forwards;
+  animation: innity-apps-turnstile-fotb 1s ease-in forwards;
 }
 
-@keyframes fotb {
+@keyframes innity-apps-turnstile-fotb {
   from {
     visibility: visible;
     transform: rotateX(0deg) translateY(0);
@@ -190,19 +190,19 @@ body {
   }
 }
 
-.fade-out-to-back .card:nth-child(1) {
+.innity-apps-turnstile-fade-out-to-back .innity-apps-turnstile-card:nth-child(1) {
   animation-delay: 0s;
 }
 
-.fade-out-to-back .card:nth-child(2) {
+.innity-apps-turnstile-fade-out-to-back .innity-apps-turnstile-card:nth-child(2) {
   animation-delay: 0.1s;
 }
 
-.fade-out-to-back .card:nth-child(3) {
+.innity-apps-turnstile-fade-out-to-back .innity-apps-turnstile-card:nth-child(3) {
   animation-delay: 0.2s;
 }
 
-.fade-out-to-back .card:nth-child(4) {
+.innity-apps-turnstile-fade-out-to-back .innity-apps-turnstile-card:nth-child(4) {
   animation-delay: 0.3s;
 }
 /* Fade Out To Back End */

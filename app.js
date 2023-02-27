@@ -1,7 +1,7 @@
 let animationFrameId = null;
 let adFormat = document.querySelector(".ad-format");
-let allCards = document.querySelectorAll('.card')
-let cardGroups = document.querySelectorAll(".card-group");
+let allCards = document.querySelectorAll('.innity-apps-turnstile-card')
+let cardGroups = document.querySelectorAll(".innity-apps-turnstile-card-group");
 
 const totalCards = cardGroups.length;
 const threshold = 300;
@@ -37,7 +37,7 @@ function showNextCard() {
   let nextCardGroups = cardGroups[nextIndex];
   let currentCardGroups = cardGroups[currentIndex];
 	
-  let lastTrailingCard = nextCardGroups.querySelectorAll('.card')[0];
+  let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
 
   lastTrailingCard.addEventListener('animationend',() => {
 		cardSwappedCallback(nextIndex, currentIndex)
@@ -65,7 +65,7 @@ function showPrevCard() {
   let prevCardGroups = cardGroups[prevIndex];
   let currentCardGroups = cardGroups[currentIndex];
 
-  let prevCards = prevCardGroups.querySelectorAll('.card');
+  let prevCards = prevCardGroups.querySelectorAll('.innity-apps-turnstile-card');
   let lastTrailingCard = prevCards[prevCards.length - 1];
 
 	lastTrailingCard.addEventListener('animationend',() => {
@@ -99,22 +99,19 @@ function getNextIndex() {
 }
 
 function fadeOutToBack(cardGroup) {
-  cardGroup.classList.remove("fade-in-from-back","fade-in-from-front","fade-out-to-front");
-  cardGroup.classList.add("fade-out-to-back");
+  cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back'
 }
 
 function fadeInFromBack(cardGroup) {
-  cardGroup.classList.remove("fade-out-to-back", "fade-out-to-front", 'fade-in-from-front');
-  cardGroup.classList.add("fade-in-from-back");
+  cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back'
+
 }
 function fadeInFromFront(cardGroup) {
-  cardGroup.classList.remove("fade-out-to-front","fade-out-to-back","fade-in-from-back");
-  cardGroup.classList.add('fade-in-from-front');
+  cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front'
 }
 
 function fadeOutToFront(cardGroup) {
-  cardGroup.classList.remove("fade-in-from-back","fade-out-to-back",'fade-in-from-front');
-  cardGroup.classList.add("fade-out-to-front");
+  cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front'
 }
 
 function cardSwappedCallback(currentIndex, prevIndex){
