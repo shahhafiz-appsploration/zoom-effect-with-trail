@@ -38,17 +38,8 @@ function showNextCard() {
   let currentCardGroups = cardGroups[currentIndex];
 	
   let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
-
-  lastTrailingCard.addEventListener('animationend',() => {
-		cardSwappedCallback(nextIndex, currentIndex)
-
-		currentIndex = nextIndex;
-		lastScrollPosition = scrollOffset;
-
-		checkForCardSwap();
-	},{once: true});
-
-
+  listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex)
+  
   if(isFirstCard){
     isFirstCard = false;
   } else {
@@ -67,8 +58,16 @@ function showPrevCard() {
 
   let prevCards = prevCardGroups.querySelectorAll('.innity-apps-turnstile-card');
   let lastTrailingCard = prevCards[prevCards.length - 1];
+  listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex)
 
-	lastTrailingCard.addEventListener('animationend',() => {
+  fadeOutToBack(currentCardGroups)
+
+  fadeInFromFront(prevCardGroups)
+}
+
+
+function listenToAnimationEnd(lastTrailingCard, prevIndex){
+  lastTrailingCard.addEventListener('animationend',() => {
 		cardSwappedCallback(prevIndex, currentIndex)
 		
 		currentIndex = prevIndex;
@@ -76,10 +75,6 @@ function showPrevCard() {
 
 		checkForCardSwap();
 	},{once: true});
-
-  fadeOutToBack(currentCardGroups)
-
-  fadeInFromFront(prevCardGroups)
 }
 
 function getPrevIndex() {
