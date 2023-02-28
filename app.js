@@ -1,4 +1,6 @@
 function innityAppsTurnstile (){
+  let innityAppsCanvasAnimations = [];
+
   let innityAppsAnimationMaterials = [
     'splash1.innity',
     'splash2.innity',
@@ -75,11 +77,17 @@ function innityAppsTurnstile (){
   
   function listenToAnimationEnd(lastTrailingCard, prevIndex){
     lastTrailingCard.addEventListener('animationend',() => {
+      const hasAnimation = hasAnimationClass(cardGroups[prevIndex]);
+      
       cardSwappedCallback(prevIndex, currentIndex)
       
       currentIndex = prevIndex;
       lastScrollPosition = scrollOffset;
   
+      if(hasAnimation){
+        playRiveAnimation(cardGroups[prevIndex])
+      }
+
       checkForCardSwap();
     },{once: true});
   }
@@ -101,19 +109,45 @@ function innityAppsTurnstile (){
   }
   
   function fadeOutToBack(cardGroup) {
+    const hasAnimation = hasAnimationClass(cardGroup);
+    
     cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back'
+    
+    if(hasAnimation){
+      cardGroup.classList.add('animation')
+      pauseRiveAnimation(cardGroup)
+    }
   }
   
   function fadeInFromBack(cardGroup) {
+    const hasAnimation = hasAnimationClass(cardGroup);
+
     cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back'
-  
+    
+    if(hasAnimation){
+      cardGroup.classList.add('animation')
+    }
   }
+
   function fadeInFromFront(cardGroup) {
+    const hasAnimation = hasAnimationClass(cardGroup);
+
     cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front'
+
+    if(hasAnimation){
+      cardGroup.classList.add('animation')
+    }
   }
   
   function fadeOutToFront(cardGroup) {
+    const hasAnimation = hasAnimationClass(cardGroup);
+
     cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front'
+    
+    if(hasAnimation){
+      cardGroup.classList.add('animation')
+      pauseRiveAnimation(cardGroup)
+    }
   }
   
   function cardSwappedCallback(currentIndex, prevIndex){
@@ -123,21 +157,33 @@ function innityAppsTurnstile (){
   }
 
   function populateCanvasAnimations() {
-    let aniCardGroups = document.querySelectorAll('.innity-apps-turnstile-card-group.animation')
-    
-    for (let i = 0; i < aniCardGroups.length ; i++) {
+    for (let i = 0; i < cardGroups.length ; i++) {
+      let currentCardGroup = cardGroups[i];
+      const hasAnimation = hasAnimationClass(currentCardGroup);
+
+      if(!hasAnimation){
+        continue;
+      }
+      
       const randomCanvasID = Math.floor(Math.random() * 1000)
-      let currentCardGroup = aniCardGroups[i];
       let animatedCard = currentCardGroup.querySelector('canvas.innity-apps-turnstile-animated-card')
 
       animatedCard.setAttribute('id',randomCanvasID)
 
-      new InnityAppsCanvasAnimation({
+      innityAppsCanvasAnimations[i] = new InnityAppsCanvasAnimation({
         canvasID: animatedCard.id,
         animationFile: innityAppsAnimationMaterials[i],
         width: '640',
         height: '360',
+        onLoop: onAnimationLoop()
       });
+
+      function onAnimationLoop() {
+        setTimeout(() => {
+          innityAppsCanvasAnimations[i].pause();
+          innityAppsCanvasAnimations[i].reset();
+        },100)
+      }
 
       createAnimationTrail(animatedCard, currentCardGroup);
     }
@@ -155,6 +201,41 @@ function innityAppsTurnstile (){
 
     },1500)
   }
+
+  function hasAnimationClass(cardGroup){
+    return cardGroup.classList.contains('animation');
+  }
+
+  function pauseRiveAnimation(cardGroup){
+    innityAppsCanvasAnimations[currentIndex].pause();
+    innityAppsCanvasAnimations[currentIndex].reset();
+    
+    showAnimationTrail(cardGroup)
+  }
+
+  function playRiveAnimation(cardGroup){
+    innityAppsCanvasAnimations[currentIndex].play();
+    hideAnimationTrail(cardGroup)
+  }
+
+  function hideAnimationTrail(cardGroup){
+    let trailElements = cardGroup.querySelectorAll('img.innity-apps-turnstile-card')
+
+    for (let i = 0; i < trailElements.length; i++) {
+      let trailElement = trailElements[i];
+      trailElement.style.display = 'none'
+    }
+  }
+
+  function showAnimationTrail(cardGroup){
+    let trailElements = cardGroup.querySelectorAll('img.innity-apps-turnstile-card')
+
+    for (let i = 0; i < trailElements.length; i++) {
+      let trailElement = trailElements[i];
+      trailElement.style.display = 'block'
+    }
+  }
+
 
   populateCanvasAnimations();
 
