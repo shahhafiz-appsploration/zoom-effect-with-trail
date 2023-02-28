@@ -126,9 +126,11 @@ function innityAppsTurnstile (){
     let aniCardGroups = document.querySelectorAll('.innity-apps-turnstile-card-group.animation')
     
     for (let i = 0; i < aniCardGroups.length ; i++) {
-      
+      const randomCanvasID = Math.floor(Math.random() * 1000)
       let currentCardGroup = aniCardGroups[i];
       let animatedCard = currentCardGroup.querySelector('canvas.innity-apps-turnstile-animated-card')
+
+      animatedCard.setAttribute('id',randomCanvasID)
 
       new InnityAppsCanvasAnimation({
         canvasID: animatedCard.id,
