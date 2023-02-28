@@ -49,6 +49,8 @@ function innityAppsTurnstile (){
     let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
     listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex)
     
+    stopRiveAnimationIfAny(currentCardGroups)
+    
     if(isFirstCard){
       isFirstCard = false;
     } else {
@@ -67,13 +69,24 @@ function innityAppsTurnstile (){
   
     let prevCards = prevCardGroups.querySelectorAll('.innity-apps-turnstile-card');
     let lastTrailingCard = prevCards[prevCards.length - 1];
+
     listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex)
   
+    stopRiveAnimationIfAny(currentCardGroups)
+
     fadeOutToBack(currentCardGroups)
   
     fadeInFromFront(prevCardGroups)
   }
-  
+
+  function stopRiveAnimationIfAny(cardGroup){
+    const hasAnimation = hasAnimationClass(cardGroup)
+
+    if(hasAnimation){
+      showAnimationTrail(cardGroup)
+      pauseRiveAnimation(cardGroup)
+    }
+  }
   
   function listenToAnimationEnd(lastTrailingCard, prevIndex){
     lastTrailingCard.addEventListener('animationend',() => {
@@ -110,44 +123,42 @@ function innityAppsTurnstile (){
   
   function fadeOutToBack(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
+
+    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back'
+  
+    if(hasAnimation) classNames += ' animation'
     
-    cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back'
-    
-    if(hasAnimation){
-      cardGroup.classList.add('animation')
-      pauseRiveAnimation(cardGroup)
-    }
+    cardGroup.className = classNames
   }
   
   function fadeInFromBack(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
 
-    cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back'
+    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back'
+
+    if(hasAnimation) classNames += ' animation'
     
-    if(hasAnimation){
-      cardGroup.classList.add('animation')
-    }
+    cardGroup.className = classNames
   }
 
   function fadeInFromFront(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
 
-    cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front'
+    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front'
 
-    if(hasAnimation){
-      cardGroup.classList.add('animation')
-    }
+    if(hasAnimation) classNames += ' animation'
+    
+    cardGroup.className = classNames
   }
   
   function fadeOutToFront(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
 
-    cardGroup.className = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front'
+    let classNames= 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front';
+
+    if(hasAnimation) classNames += ' animation'
     
-    if(hasAnimation){
-      cardGroup.classList.add('animation')
-      pauseRiveAnimation(cardGroup)
-    }
+    cardGroup.className = classNames
   }
   
   function cardSwappedCallback(currentIndex, prevIndex){
@@ -209,8 +220,6 @@ function innityAppsTurnstile (){
   function pauseRiveAnimation(cardGroup){
     innityAppsCanvasAnimations[currentIndex].pause();
     innityAppsCanvasAnimations[currentIndex].reset();
-    
-    showAnimationTrail(cardGroup)
   }
 
   function playRiveAnimation(cardGroup){
