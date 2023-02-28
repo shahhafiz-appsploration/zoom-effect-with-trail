@@ -1,5 +1,4 @@
 function innityAppsTurnstile (){
-  // let innityAppsCanvasAnimations = [];
   let innityAppsAnimationMaterials = [
     'splash1.innity',
     'splash2.innity',
@@ -124,21 +123,6 @@ function innityAppsTurnstile (){
   }
 
   function populateCanvasAnimations() {
-    // console.log('populate canvas animation  ')
-    // let aniCards = document.querySelectorAll('.innity-apps-animation')
-    
-    // let animationIndex = 0
-    // for (let i = 0; i < aniCards.length; i++) {
-    //   const aniCard = aniCards[i];
-      
-    //   let innityAppsCanvasAnimations = new InnityAppsCanvasAnimation({
-    //       canvasID: aniCard.id,
-    //       animationFile: innityAppsAnimationMaterials[i],
-    //       width: '640',
-    //       height: '360',
-    //     });
-    // }
-
     let aniCardGroups = document.querySelectorAll('.innity-apps-turnstile-card-group.animation')
     for (let i = 0; i < aniCardGroups.length ; i++) {
       let currentCardGroup = aniCardGroups[i];
@@ -152,22 +136,7 @@ function innityAppsTurnstile (){
           animationFile: innityAppsAnimationMaterials[i],
           width: '640',
           height: '360',
-          // onLoop: onAnimationLoop,
-          // onStop: onAnimationSt  op,
         });
-
-        // function onAnimationStop() {
-        //   innityAppsCanvasAnimations[currentIndex].pause();
-        // }
-        
-        // function onAnimationLoop() {
-        //   innityAppsCanvasAnimations[currentIndex].pause();
-        //   innityAppsCanvasAnimations[currentIndex].reset();
-        
-        //   setTimeout(function() {
-        //     innityAppsCanvasAnimations[currentIndex].play();
-        //   }, 100);
-        // }
       }
     }
   }
