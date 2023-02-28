@@ -126,20 +126,32 @@ function innityAppsTurnstile (){
     let aniCardGroups = document.querySelectorAll('.innity-apps-turnstile-card-group.animation')
     
     for (let i = 0; i < aniCardGroups.length ; i++) {
-      let currentCardGroup = aniCardGroups[i];
-      let cards = currentCardGroup.querySelectorAll('.innity-apps-turnstile-card')
       
-      for (let j = 0; j < cards.length; j++) {
-        let card = cards[j];
-        
-        new InnityAppsCanvasAnimation({
-          canvasID: card.id,
-          animationFile: innityAppsAnimationMaterials[i],
-          width: '640',
-          height: '360',
-        });
-      }
+      let currentCardGroup = aniCardGroups[i];
+      let animatedCard = currentCardGroup.querySelector('canvas.innity-apps-turnstile-animated-card')
+
+      new InnityAppsCanvasAnimation({
+        canvasID: animatedCard.id,
+        animationFile: innityAppsAnimationMaterials[i],
+        width: '640',
+        height: '360',
+      });
+
+      createAnimationTrail(animatedCard, currentCardGroup);
     }
+  }
+
+  function createAnimationTrail(animatedCard, cardGroup){
+    setTimeout(() => {
+      let trailElements = cardGroup.querySelectorAll('img.innity-apps-turnstile-card')
+      let trailImage = animatedCard.toDataURL();
+  
+      for (let i = 0; i < trailElements.length; i++) {
+        let trailElement = trailElements[i];
+        trailElement.setAttribute('src',trailImage)
+      }
+
+    },1500)
   }
 
   populateCanvasAnimations();
