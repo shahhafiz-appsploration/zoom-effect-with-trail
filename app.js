@@ -1,4 +1,13 @@
 function innityAppsTurnstile (){
+  // let innityAppsCanvasAnimations = [];
+  let innityAppsAnimationMaterials = [
+    'splash1.innity',
+    'splash2.innity',
+    'splash3.innity',
+    'splash4.innity',
+    'splash5.innity',
+  ];
+
   let animationFrameId = null;
   let cardGroups = document.querySelectorAll(".innity-apps-turnstile-card-group");
   
@@ -113,6 +122,58 @@ function innityAppsTurnstile (){
     const prevCard = prevIndex + 1;
     console.log(`showing card ${currentCard}, previous was card ${prevCard}`)
   }
+
+  function populateCanvasAnimations() {
+    // console.log('populate canvas animation  ')
+    // let aniCards = document.querySelectorAll('.innity-apps-animation')
+    
+    // let animationIndex = 0
+    // for (let i = 0; i < aniCards.length; i++) {
+    //   const aniCard = aniCards[i];
+      
+    //   let innityAppsCanvasAnimations = new InnityAppsCanvasAnimation({
+    //       canvasID: aniCard.id,
+    //       animationFile: innityAppsAnimationMaterials[i],
+    //       width: '640',
+    //       height: '360',
+    //     });
+    // }
+
+    let aniCardGroups = document.querySelectorAll('.innity-apps-turnstile-card-group.animation')
+    for (let i = 0; i < aniCardGroups.length ; i++) {
+      let currentCardGroup = aniCardGroups[i];
+      let cards = currentCardGroup.querySelectorAll('.innity-apps-turnstile-card')
+      
+      for (let j = 0; j < cards.length; j++) {
+        let card = cards[j];
+        console.log(card)
+        new InnityAppsCanvasAnimation({
+          canvasID: card.id,
+          animationFile: innityAppsAnimationMaterials[i],
+          width: '640',
+          height: '360',
+          // onLoop: onAnimationLoop,
+          // onStop: onAnimationSt  op,
+        });
+
+        // function onAnimationStop() {
+        //   innityAppsCanvasAnimations[currentIndex].pause();
+        // }
+        
+        // function onAnimationLoop() {
+        //   innityAppsCanvasAnimations[currentIndex].pause();
+        //   innityAppsCanvasAnimations[currentIndex].reset();
+        
+        //   setTimeout(function() {
+        //     innityAppsCanvasAnimations[currentIndex].play();
+        //   }, 100);
+        // }
+      }
+    }
+  }
+
+  populateCanvasAnimations();
+
   checkForCardSwap();
 }
 
