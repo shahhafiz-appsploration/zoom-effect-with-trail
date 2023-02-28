@@ -124,13 +124,14 @@ function innityAppsTurnstile (){
 
   function populateCanvasAnimations() {
     let aniCardGroups = document.querySelectorAll('.innity-apps-turnstile-card-group.animation')
+    
     for (let i = 0; i < aniCardGroups.length ; i++) {
       let currentCardGroup = aniCardGroups[i];
       let cards = currentCardGroup.querySelectorAll('.innity-apps-turnstile-card')
       
       for (let j = 0; j < cards.length; j++) {
         let card = cards[j];
-        console.log(card)
+        
         new InnityAppsCanvasAnimation({
           canvasID: card.id,
           animationFile: innityAppsAnimationMaterials[i],
