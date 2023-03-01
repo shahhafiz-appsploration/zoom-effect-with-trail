@@ -21,7 +21,7 @@ function innityAppsTurnstile (){
   let isFirstCard = true;
   let currentIndex = cardGroups.length - 1;
   
-  console.log(`${cardGroups.length} cards`)
+  console.log(`${cardGroups.length} cards`);
   
   addEventListener("scroll", function () {
     scrollOffset = window.pageYOffset;
@@ -47,9 +47,9 @@ function innityAppsTurnstile (){
     let currentCardGroups = cardGroups[currentIndex];
     
     let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
-    listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex)
+    listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex);
     
-    stopRiveAnimationIfAny(currentCardGroups)
+    stopRiveAnimationIfAny(currentCardGroups);
 
     pauseVideoIfAny(currentCardGroups);
     
@@ -59,7 +59,7 @@ function innityAppsTurnstile (){
       fadeOutToFront(currentCardGroups);
     }
   
-    fadeInFromBack(nextCardGroups)
+    fadeInFromBack(nextCardGroups);
   }
   
   function showPrevCard() {
@@ -72,23 +72,23 @@ function innityAppsTurnstile (){
     let prevCards = prevCardGroups.querySelectorAll('.innity-apps-turnstile-card');
     let lastTrailingCard = prevCards[prevCards.length - 1];
 
-    listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex)
+    listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex);
   
-    stopRiveAnimationIfAny(currentCardGroups)
+    stopRiveAnimationIfAny(currentCardGroups);
 
-    pauseVideoIfAny(currentCardGroups)
+    pauseVideoIfAny(currentCardGroups);
 
-    fadeOutToBack(currentCardGroups)
+    fadeOutToBack(currentCardGroups);
   
-    fadeInFromFront(prevCardGroups)
+    fadeInFromFront(prevCardGroups);
   }
 
   function stopRiveAnimationIfAny(cardGroup){
-    const hasAnimation = hasAnimationClass(cardGroup)
+    const hasAnimation = hasAnimationClass(cardGroup);
 
     if(hasAnimation){
-      showAnimationTrail(cardGroup)
-      pauseRiveAnimation(cardGroup)
+      showAnimationTrail(cardGroup);
+      pauseRiveAnimation(cardGroup);
     }
   }
   
@@ -96,15 +96,15 @@ function innityAppsTurnstile (){
     lastTrailingCard.addEventListener('animationend',() => {
       const hasAnimation = hasAnimationClass(cardGroups[prevIndex]);
 
-      playVideoIfAny(cardGroups[prevIndex])
+      playVideoIfAny(cardGroups[prevIndex]);
       
-      cardSwappedCallback(prevIndex, currentIndex)
+      cardSwappedCallback(prevIndex, currentIndex);
       
       currentIndex = prevIndex;
       lastScrollPosition = scrollOffset;
   
       if(hasAnimation){
-        playRiveAnimation(cardGroups[prevIndex])
+        playRiveAnimation(cardGroups[prevIndex]);
       }
 
       checkForCardSwap();
@@ -130,31 +130,31 @@ function innityAppsTurnstile (){
   function fadeOutToBack(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
 
-    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back'
+    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back';
   
-    if(hasAnimation) classNames += ' animation'
+    if(hasAnimation) classNames += ' animation';
     
-    cardGroup.className = classNames
+    cardGroup.className = classNames;
   }
   
   function fadeInFromBack(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
 
-    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back'
+    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back';
 
-    if(hasAnimation) classNames += ' animation'
+    if(hasAnimation) classNames += ' animation';
     
-    cardGroup.className = classNames
+    cardGroup.className = classNames;
   }
 
   function fadeInFromFront(cardGroup) {
     const hasAnimation = hasAnimationClass(cardGroup);
 
-    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front'
+    let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front';
 
-    if(hasAnimation) classNames += ' animation'
+    if(hasAnimation) classNames += ' animation';
     
-    cardGroup.className = classNames
+    cardGroup.className = classNames;
   }
   
   function fadeOutToFront(cardGroup) {
@@ -162,7 +162,7 @@ function innityAppsTurnstile (){
 
     let classNames= 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front';
 
-    if(hasAnimation) classNames += ' animation'
+    if(hasAnimation) classNames += ' animation';
     
     cardGroup.className = classNames
   }
@@ -182,10 +182,10 @@ function innityAppsTurnstile (){
         continue;
       }
       
-      const randomCanvasID = Math.floor(Math.random() * 1000)
-      let animatedCard = currentCardGroup.querySelector('canvas.innity-apps-turnstile-animated-card')
+      const randomCanvasID = Math.floor(Math.random() * 1000);
+      let animatedCard = currentCardGroup.querySelector('canvas.innity-apps-turnstile-animated-card');
 
-      animatedCard.setAttribute('id',randomCanvasID)
+      animatedCard.setAttribute('id',randomCanvasID);
 
       innityAppsCanvasAnimations[i] = new InnityAppsCanvasAnimation({
         canvasID: animatedCard.id,
@@ -224,18 +224,18 @@ function innityAppsTurnstile (){
   }
 
   function playVideoIfAny(cardGroup){
-    let videoElement = cardGroup.querySelector('video')
+    let videoElement = cardGroup.querySelector('video');
 
     if(videoElement){
-      videoElement.play()
+      videoElement.play();
     }
   }
 
   function pauseVideoIfAny(cardGroup){
-    let videoElement = cardGroup.querySelector('video')
+    let videoElement = cardGroup.querySelector('video');
 
     if(videoElement){
-      videoElement.pause()
+      videoElement.pause();
     }
   }
 
@@ -246,7 +246,7 @@ function innityAppsTurnstile (){
 
   function playRiveAnimation(cardGroup){
     innityAppsCanvasAnimations[currentIndex].play();
-    hideAnimationTrail(cardGroup)
+    hideAnimationTrail(cardGroup);
   }
 
   function hideAnimationTrail(cardGroup){
@@ -254,7 +254,7 @@ function innityAppsTurnstile (){
 
     for (let i = 0; i < trailElements.length; i++) {
       let trailElement = trailElements[i];
-      trailElement.style.display = 'none'
+      trailElement.style.display = 'none';
     }
   }
 
@@ -263,7 +263,7 @@ function innityAppsTurnstile (){
 
     for (let i = 0; i < trailElements.length; i++) {
       let trailElement = trailElements[i];
-      trailElement.style.display = 'block'
+      trailElement.style.display = 'block';
     }
   }
 
