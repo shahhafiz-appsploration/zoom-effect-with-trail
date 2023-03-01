@@ -50,6 +50,8 @@ function innityAppsTurnstile (){
     listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex)
     
     stopRiveAnimationIfAny(currentCardGroups)
+
+    pauseVideoIfAny(currentCardGroups);
     
     if(isFirstCard){
       isFirstCard = false;
@@ -74,6 +76,8 @@ function innityAppsTurnstile (){
   
     stopRiveAnimationIfAny(currentCardGroups)
 
+    pauseVideoIfAny(currentCardGroups)
+
     fadeOutToBack(currentCardGroups)
   
     fadeInFromFront(prevCardGroups)
@@ -91,6 +95,8 @@ function innityAppsTurnstile (){
   function listenToAnimationEnd(lastTrailingCard, prevIndex){
     lastTrailingCard.addEventListener('animationend',() => {
       const hasAnimation = hasAnimationClass(cardGroups[prevIndex]);
+
+      playVideoIfAny(cardGroups[prevIndex])
       
       cardSwappedCallback(prevIndex, currentIndex)
       
@@ -215,6 +221,22 @@ function innityAppsTurnstile (){
 
   function hasAnimationClass(cardGroup){
     return cardGroup.classList.contains('animation');
+  }
+
+  function playVideoIfAny(cardGroup){
+    let videoElement = cardGroup.querySelector('video')
+
+    if(videoElement){
+      videoElement.play()
+    }
+  }
+
+  function pauseVideoIfAny(cardGroup){
+    let videoElement = cardGroup.querySelector('video')
+
+    if(videoElement){
+      videoElement.pause()
+    }
   }
 
   function pauseRiveAnimation(cardGroup){
