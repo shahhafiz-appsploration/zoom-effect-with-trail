@@ -111,6 +111,21 @@ body {
   }
 }
 
+@-webkit-keyframes innity-apps-turnstile-fifb {
+  0% {
+    visibility: hidden;
+    transform: translateY(-300px) translateZ(calc(-100vh - 100px));
+    rotate: x 100deg;
+    scale: 0.3;
+  }
+  100% {
+    visibility: visible;
+    transform: translateY(0) ;
+    rotate: x 0;
+    scale: 1;
+  }
+}
+
 .innity-apps-turnstile-fade-in-from-back .innity-apps-turnstile-card:nth-child(1) {
   animation-delay: 0.8s;
 }
@@ -144,6 +159,20 @@ body {
     visibility: hidden;
     transform: rotateX(-90deg) translateY(200px)
       translateZ(calc(+100vh + 100px));
+  }
+}
+
+@-webkit-keyframes innity-apps-turnstile-fotf {
+  from {
+    visibility: visible;
+    transform: translateY(0);
+    rotate: x 0;
+  }
+  to {
+    visibility: hidden;
+    transform: translateY(200px)
+      translateZ(calc(+100vh + 100px));
+    rotate: x -90deg;
   }
 }
 
@@ -187,6 +216,20 @@ body {
   }
 }
 
+@-webkit-keyframes innity-apps-turnstile-fiff {
+  from {
+    visibility: hidden;
+    transform: translateY(200px)
+      translateZ(calc(+100vh + 100px));
+    rotate: x -90deg;
+  }
+  to {
+    visibility: visible;
+    transform: translateY(0);
+    rotate: x 0;
+  }
+}
+
 .innity-apps-turnstile-fade-in-from-front .innity-apps-turnstile-card:nth-child(1) {
   animation-delay: 0.5s;
 }
@@ -219,6 +262,20 @@ body {
     visibility: hidden;
     transform: rotateX(90deg) translateY(-300px)
       translateZ(calc(-100vh - 100px));
+  }
+}
+
+@-webkit-keyframes innity-apps-turnstile-fotb {
+  from {
+    visibility: visible;
+    transform: translateY(0);
+    rotate: 0deg;
+  }
+  to {
+    visibility: hidden;
+    transform: translateY(-300px)
+      translateZ(calc(-100vh - 100px));
+    rotate: x 90deg;
   }
 }
 
