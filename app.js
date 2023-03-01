@@ -1,11 +1,13 @@
 function innityAppsTurnstile (){
   let innityAppsCanvasAnimations = [];
+  
+  this.animations = innityAppsCanvasAnimations;
 
   let innityAppsAnimationMaterials = [
+    'splash4.innity',
     'splash1.innity',
     'splash2.innity',
     'splash3.innity',
-    'splash4.innity',
     'splash5.innity',
   ];
 
@@ -49,7 +51,7 @@ function innityAppsTurnstile (){
     let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
     listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex);
     
-    stopRiveAnimationIfAny(currentCardGroups);
+    pauseRiveAnimationIfAny(currentCardGroups);
 
     pauseVideoIfAny(currentCardGroups);
     
@@ -74,7 +76,7 @@ function innityAppsTurnstile (){
 
     listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex);
   
-    stopRiveAnimationIfAny(currentCardGroups);
+    pauseRiveAnimationIfAny(currentCardGroups);
 
     pauseVideoIfAny(currentCardGroups);
 
@@ -83,29 +85,25 @@ function innityAppsTurnstile (){
     fadeInFromFront(prevCardGroups);
   }
 
-  function stopRiveAnimationIfAny(cardGroup){
+  function pauseRiveAnimationIfAny(cardGroup){
     const hasAnimation = hasAnimationClass(cardGroup);
 
     if(hasAnimation){
       showAnimationTrail(cardGroup);
-      pauseRiveAnimation(cardGroup);
+      innityAppsCanvasAnimations[currentIndex].pause();
     }
   }
   
   function listenToAnimationEnd(lastTrailingCard, prevIndex){
     lastTrailingCard.addEventListener('animationend',() => {
-      const hasAnimation = hasAnimationClass(cardGroups[prevIndex]);
-
-      playVideoIfAny(cardGroups[prevIndex]);
-      
       cardSwappedCallback(prevIndex, currentIndex);
       
       currentIndex = prevIndex;
       lastScrollPosition = scrollOffset;
-  
-      if(hasAnimation){
-        playRiveAnimation(cardGroups[prevIndex]);
-      }
+      
+      playVideoIfAny();
+      
+      playRiveAnimationIfAny();
 
       checkForCardSwap();
     },{once: true});
@@ -198,8 +196,7 @@ function innityAppsTurnstile (){
       function onAnimationLoop() {
         setTimeout(() => {
           innityAppsCanvasAnimations[i].pause();
-          innityAppsCanvasAnimations[i].reset();
-        },100)
+        },200)
       }
 
       createAnimationTrail(animatedCard, currentCardGroup);
@@ -223,8 +220,9 @@ function innityAppsTurnstile (){
     return cardGroup.classList.contains('animation');
   }
 
-  function playVideoIfAny(cardGroup){
-    let videoElement = cardGroup.querySelector('video');
+  function playVideoIfAny(){
+    let currentCardGroup = cardGroups[currentIndex];
+    let videoElement = currentCardGroup.querySelector('video');
 
     if(videoElement){
       videoElement.play();
@@ -239,14 +237,14 @@ function innityAppsTurnstile (){
     }
   }
 
-  function pauseRiveAnimation(cardGroup){
-    innityAppsCanvasAnimations[currentIndex].pause();
-    innityAppsCanvasAnimations[currentIndex].reset();
-  }
+  function playRiveAnimationIfAny(){
+    let currentCardGroup = cardGroups[currentIndex];
+    const hasAnimation = hasAnimationClass(currentCardGroup);
 
-  function playRiveAnimation(cardGroup){
-    innityAppsCanvasAnimations[currentIndex].play();
-    hideAnimationTrail(cardGroup);
+    if(hasAnimation){
+      hideAnimationTrail(currentCardGroup);
+      innityAppsCanvasAnimations[currentIndex].play();
+    }
   }
 
   function hideAnimationTrail(cardGroup){
