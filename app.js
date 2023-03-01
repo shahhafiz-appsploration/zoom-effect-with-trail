@@ -89,6 +89,7 @@ function innityAppsTurnstile (){
     const hasAnimation = hasAnimationClass(cardGroup);
 
     if(hasAnimation){
+      updateCurrentAnimationCardTrail()
       showAnimationTrail(cardGroup);
       innityAppsCanvasAnimations[currentIndex].pause();
     }
@@ -199,11 +200,11 @@ function innityAppsTurnstile (){
         },200)
       }
 
-      createAnimationTrail(animatedCard, currentCardGroup);
+      createAnimationCardTrail(animatedCard, currentCardGroup);
     }
   }
 
-  function createAnimationTrail(animatedCard, cardGroup){
+  function createAnimationCardTrail(animatedCard, cardGroup){
     setTimeout(() => {
       let trailElements = cardGroup.querySelectorAll('img.innity-apps-turnstile-card')
       let trailImage = animatedCard.toDataURL();
@@ -214,6 +215,18 @@ function innityAppsTurnstile (){
       }
 
     },1500)
+  }
+
+  function updateCurrentAnimationCardTrail(){
+      let currentCardGroup = cardGroups[currentIndex]
+      let animatedCard = currentCardGroup.querySelector('canvas')
+      let trailElements = currentCardGroup.querySelectorAll('img.innity-apps-turnstile-card')
+      let trailImage = animatedCard.toDataURL();
+  
+      for (let i = 0; i < trailElements.length; i++) {
+        let trailElement = trailElements[i];
+        trailElement.setAttribute('src',trailImage)
+      }
   }
 
   function hasAnimationClass(cardGroup){
