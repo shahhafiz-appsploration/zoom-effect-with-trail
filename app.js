@@ -27,7 +27,7 @@ function innityAppsTurnstile (){
   let cardGroups = document.querySelectorAll(".innity-apps-turnstile-card-group");
   
   const totalCards = cardGroups.length;
-  const threshold = 300;
+  const threshold = 200;
   
   let lastScrollPosition = 0;
   let scrollOffset = 0;
