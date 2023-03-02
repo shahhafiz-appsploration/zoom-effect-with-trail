@@ -121,7 +121,7 @@ body {
   100% {
     visibility: visible;
     transform: translateY(0) ;
-    rotate: x 0;
+    rotate: 0deg;
     scale: 1;
   }
 }
@@ -166,7 +166,7 @@ body {
   from {
     visibility: visible;
     transform: translateY(0);
-    rotate: x 0;
+    rotate: 0deg;
   }
   to {
     visibility: hidden;
@@ -226,7 +226,7 @@ body {
   to {
     visibility: visible;
     transform: translateY(0);
-    rotate: x 0;
+    rotate: 0deg;
   }
 }
 
