@@ -1,4 +1,11 @@
 function innityAppsTurnstile (){
+
+  const type = {
+    image: 'IMAGE',
+    video: 'VIDEO',
+    animation: 'ANIMATION',
+  }
+  
   let innityAppsCanvasAnimations = [];
   
   this.animations = innityAppsCanvasAnimations;
@@ -51,19 +58,25 @@ function innityAppsTurnstile (){
     const nextIndex = getNextIndex();
       
     let nextCardGroups = cardGroups[nextIndex];
-    let currentCardGroups = cardGroups[currentIndex];
+    let currentCardGroup = cardGroups[currentIndex];
+
+    const currentCardGroupType = getCardGroupType(currentCardGroup);
     
     let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
     listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex);
     
-    pauseRiveAnimationIfAny(currentCardGroups);
+    if(currentCardGroupType === type.animation){
+      pauseAnimation(currentCardGroup);
+    }
 
-    pauseVideoIfAny(currentCardGroups);
+    if(currentCardGroupType === type.video){
+      pauseVideo(currentCardGroup);
+    }
     
     if(isFirstCard){
       isFirstCard = false;
     } else {
-      fadeOutToFront(currentCardGroups);
+      fadeOutToFront(currentCardGroup);
     }
   
     fadeInFromBack(nextCardGroups);
@@ -74,30 +87,32 @@ function innityAppsTurnstile (){
     cancelAnimationFrame(animationFrameId);
   
     let prevCardGroups = cardGroups[prevIndex];
-    let currentCardGroups = cardGroups[currentIndex];
+    let currentCardGroup = cardGroups[currentIndex];
+
+    const currentCardGroupType = getCardGroupType(currentCardGroup);
   
     let prevCards = prevCardGroups.querySelectorAll('.innity-apps-turnstile-card');
     let lastTrailingCard = prevCards[prevCards.length - 1];
 
     listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex);
   
-    pauseRiveAnimationIfAny(currentCardGroups);
+    if(currentCardGroupType === type.animation){
+      pauseAnimation(currentCardGroup);
+    }
 
-    pauseVideoIfAny(currentCardGroups);
+    if(currentCardGroupType === type.video){
+      pauseVideo(currentCardGroup);
+    }
 
-    fadeOutToBack(currentCardGroups);
+    fadeOutToBack(currentCardGroup);
   
     fadeInFromFront(prevCardGroups);
   }
 
-  function pauseRiveAnimationIfAny(cardGroup){
-    const hasAnimation = isAnimationCard(cardGroup);
-
-    if(hasAnimation){
+  function pauseAnimation(cardGroup){
       updateCurrentAnimationCardTrail()
       showAnimationTrail(cardGroup);
       innityAppsCanvasAnimations[currentIndex].pause();
-    }
   }
   
   function listenToAnimationEnd(lastTrailingCard, prevIndex){
@@ -107,9 +122,15 @@ function innityAppsTurnstile (){
       currentIndex = prevIndex;
       lastScrollPosition = scrollOffset;
       
-      playVideoIfAny();
-      
-      playRiveAnimationIfAny();
+      const currentCardGroupType = getCardGroupType(cardGroups[currentIndex]);
+
+      if(currentCardGroupType === type.animation){
+        playAnimation();
+      }
+
+      if(currentCardGroupType === type.video){
+        playVideo();
+      }
 
       checkForCardSwap();
     },{once: true});
@@ -160,9 +181,9 @@ function innityAppsTurnstile (){
   function populateCanvasAnimations() {
     for (let i = 0; i < cardGroups.length ; i++) {
       let currentCardGroup = cardGroups[i];
-      const hasAnimation = isAnimationCard(currentCardGroup);
+      const currentCardGroupType = getCardGroupType(currentCardGroup);
 
-      if(!hasAnimation){
+      if(currentCardGroupType !== type.animation){
         continue;
       }
       
@@ -214,44 +235,30 @@ function innityAppsTurnstile (){
       }
   }
 
-  function isAnimationCard(cardGroup){
-    let canvases = cardGroup.querySelectorAll('canvas'); 
-    return canvases.length > 0
-  }
-
-  function playVideoIfAny(){
+  function playVideo(){
     let currentCardGroup = cardGroups[currentIndex];
     let videoElement = currentCardGroup.querySelector('video');
 
-    if(videoElement){
-      videoElement.play();
-    }
+    videoElement.play();
   }
 
-  function pauseVideoIfAny(cardGroup){
+  function pauseVideo(cardGroup){
     let videoElement = cardGroup.querySelector('video');
+    videoElement.pause();
 
-    if(videoElement){
-      videoElement.pause();
-      let trailImage = takeVideoScreenshot(videoElement);
-  
-      let trails = cardGroup.querySelectorAll('img.innity-apps-turnstile-video');
+    let trailImage = takeVideoScreenshot(videoElement);
+    let trails = cardGroup.querySelectorAll('img.innity-apps-turnstile-video');
 
-      for (let i = 0; i < trails.length; i++) {
-        let trail = trails[i];
-        trail.src = trailImage
-      }
+    for (let i = 0; i < trails.length; i++) {
+      let trail = trails[i];
+      trail.src = trailImage
     }
   }
 
-  function playRiveAnimationIfAny(){
+  function playAnimation(){
     let currentCardGroup = cardGroups[currentIndex];
-    const hasAnimation = isAnimationCard(currentCardGroup);
-
-    if(hasAnimation){
-      hideAnimationTrail(currentCardGroup);
-      innityAppsCanvasAnimations[currentIndex].play();
-    }
+    hideAnimationTrail(currentCardGroup);
+    innityAppsCanvasAnimations[currentIndex].play();
   }
 
   function hideAnimationTrail(cardGroup){
@@ -284,6 +291,21 @@ function innityAppsTurnstile (){
     let image = canvas.toDataURL('image/jpeg');
 
     return image;
+  }
+
+  function getCardGroupType(cardGroup){
+      const canvases = cardGroup.querySelectorAll('canvas'); 
+      const videos = cardGroup.querySelectorAll('video');
+      
+      if(canvases.length > 0){
+        return type.animation
+      }
+
+      if(videos.length > 0){
+        return type.video
+      }
+
+      return type.image
   }
 
   populateCanvasAnimations();
