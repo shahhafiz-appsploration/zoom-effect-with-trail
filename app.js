@@ -10,19 +10,6 @@ function innityAppsTurnstile (){
   
   this.animations = innityAppsCanvasAnimations;
 
-  let innityAppsAnimationMaterials = [
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-    'splash1.innity',
-  ];
-
   let animationFrameId = null;
   let cardGroups = document.querySelectorAll(".innity-apps-turnstile-card-group");
   
@@ -189,12 +176,12 @@ function innityAppsTurnstile (){
       
       const randomCanvasID = Math.floor(Math.random() * 1000);
       let animatedCard = currentCardGroup.querySelector('canvas');
+      const animationSrc = animatedCard.dataset.animationsrc
 
       animatedCard.setAttribute('id',randomCanvasID);
-
       innityAppsCanvasAnimations[i] = new InnityAppsCanvasAnimation({
         canvasID: animatedCard.id,
-        animationFile: innityAppsAnimationMaterials[i],
+        animationFile: animationSrc,
         width: '640',
         height: '360',
         onLoop: onAnimationLoop()
