@@ -252,6 +252,14 @@ function innityAppsTurnstile (){
 
     if(videoElement){
       videoElement.pause();
+      let trailImage = takeVideoScreenshot(videoElement);
+  
+      let trails = cardGroup.querySelectorAll('img.innity-apps-turnstile-video');
+
+      for (let i = 0; i < trails.length; i++) {
+        let trail = trails[i];
+        trail.src = trailImage
+      }
     }
   }
 
@@ -283,6 +291,21 @@ function innityAppsTurnstile (){
     }
   }
 
+  function takeVideoScreenshot(video){
+    console.log(video)
+    let canvas = document.createElement('canvas');
+    // let video = document.querySelector('video');
+
+    canvas.width = 1920;
+    canvas.height = 1080;
+
+    let ctx = canvas.getContext('2d');
+    ctx.drawImage( video, 0, 0, canvas.width, canvas.height );
+
+    let image = canvas.toDataURL('image/jpeg');
+
+    return image;
+  }
 
   populateCanvasAnimations();
 
