@@ -132,42 +132,22 @@ function innityAppsTurnstile (){
   }
   
   function fadeOutToBack(cardGroup) {
-    const hasAnimation = isAnimationCard(cardGroup);
-
     let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back';
-  
-    if(hasAnimation) classNames += ' animation';
-    
     cardGroup.className = classNames;
   }
   
   function fadeInFromBack(cardGroup) {
-    const hasAnimation = isAnimationCard(cardGroup);
-
     let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back';
-
-    if(hasAnimation) classNames += ' animation';
-    
     cardGroup.className = classNames;
   }
 
   function fadeInFromFront(cardGroup) {
-    const hasAnimation = isAnimationCard(cardGroup);
-
     let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front';
-
-    if(hasAnimation) classNames += ' animation';
-    
     cardGroup.className = classNames;
   }
   
   function fadeOutToFront(cardGroup) {
-    const hasAnimation = isAnimationCard(cardGroup);
-
     let classNames= 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front';
-
-    if(hasAnimation) classNames += ' animation';
-    
     cardGroup.className = classNames
   }
   
@@ -235,7 +215,8 @@ function innityAppsTurnstile (){
   }
 
   function isAnimationCard(cardGroup){
-    return cardGroup.classList.contains('animation');
+    let canvases = cardGroup.querySelectorAll('canvas'); 
+    return canvases.length > 0
   }
 
   function playVideoIfAny(){
@@ -292,9 +273,7 @@ function innityAppsTurnstile (){
   }
 
   function takeVideoScreenshot(video){
-    console.log(video)
     let canvas = document.createElement('canvas');
-    // let video = document.querySelector('video');
 
     canvas.width = 1920;
     canvas.height = 1080;
