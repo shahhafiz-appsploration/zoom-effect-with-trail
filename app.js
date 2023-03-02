@@ -4,10 +4,10 @@ function innityAppsTurnstile (){
   this.animations = innityAppsCanvasAnimations;
 
   let innityAppsAnimationMaterials = [
-    'splash4.innity',
     'splash1.innity',
     'splash2.innity',
     'splash3.innity',
+    'splash4.innity',
     'splash5.innity',
   ];
 
