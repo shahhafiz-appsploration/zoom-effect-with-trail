@@ -5,10 +5,15 @@ function innityAppsTurnstile (){
 
   let innityAppsAnimationMaterials = [
     'splash1.innity',
-    'splash2.innity',
-    'splash3.innity',
-    'splash4.innity',
-    'splash5.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
+    'splash1.innity',
   ];
 
   let animationFrameId = null;
