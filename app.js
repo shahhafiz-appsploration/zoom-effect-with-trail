@@ -91,7 +91,7 @@ function innityAppsTurnstile (){
   }
 
   function pauseRiveAnimationIfAny(cardGroup){
-    const hasAnimation = hasAnimationClass(cardGroup);
+    const hasAnimation = isAnimationCard(cardGroup);
 
     if(hasAnimation){
       updateCurrentAnimationCardTrail()
@@ -132,7 +132,7 @@ function innityAppsTurnstile (){
   }
   
   function fadeOutToBack(cardGroup) {
-    const hasAnimation = hasAnimationClass(cardGroup);
+    const hasAnimation = isAnimationCard(cardGroup);
 
     let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-back';
   
@@ -142,7 +142,7 @@ function innityAppsTurnstile (){
   }
   
   function fadeInFromBack(cardGroup) {
-    const hasAnimation = hasAnimationClass(cardGroup);
+    const hasAnimation = isAnimationCard(cardGroup);
 
     let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-back';
 
@@ -152,7 +152,7 @@ function innityAppsTurnstile (){
   }
 
   function fadeInFromFront(cardGroup) {
-    const hasAnimation = hasAnimationClass(cardGroup);
+    const hasAnimation = isAnimationCard(cardGroup);
 
     let classNames = 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-in-from-front';
 
@@ -162,7 +162,7 @@ function innityAppsTurnstile (){
   }
   
   function fadeOutToFront(cardGroup) {
-    const hasAnimation = hasAnimationClass(cardGroup);
+    const hasAnimation = isAnimationCard(cardGroup);
 
     let classNames= 'innity-apps-turnstile-card-group innity-apps-turnstile-fade-out-to-front';
 
@@ -180,14 +180,14 @@ function innityAppsTurnstile (){
   function populateCanvasAnimations() {
     for (let i = 0; i < cardGroups.length ; i++) {
       let currentCardGroup = cardGroups[i];
-      const hasAnimation = hasAnimationClass(currentCardGroup);
+      const hasAnimation = isAnimationCard(currentCardGroup);
 
       if(!hasAnimation){
         continue;
       }
       
       const randomCanvasID = Math.floor(Math.random() * 1000);
-      let animatedCard = currentCardGroup.querySelector('canvas.innity-apps-turnstile-animated-card');
+      let animatedCard = currentCardGroup.querySelector('canvas');
 
       animatedCard.setAttribute('id',randomCanvasID);
 
@@ -234,7 +234,7 @@ function innityAppsTurnstile (){
       }
   }
 
-  function hasAnimationClass(cardGroup){
+  function isAnimationCard(cardGroup){
     return cardGroup.classList.contains('animation');
   }
 
@@ -265,7 +265,7 @@ function innityAppsTurnstile (){
 
   function playRiveAnimationIfAny(){
     let currentCardGroup = cardGroups[currentIndex];
-    const hasAnimation = hasAnimationClass(currentCardGroup);
+    const hasAnimation = isAnimationCard(currentCardGroup);
 
     if(hasAnimation){
       hideAnimationTrail(currentCardGroup);
