@@ -16,6 +16,7 @@ body {
   width: 100vw;
   /* background-color: aqua; */
   bottom: 0;
+  touch-action: none;
 }
 
 .innity-apps-turnstile-content {

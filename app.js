@@ -303,13 +303,10 @@ function innityAppsTurnstile (){
       let cardGroup = cardGroups[i];
 
       cardGroup.addEventListener('touchstart', function(event) {
-        console.log('touchstart')
           touchstartX = event.touches[0].clientX;
-      },{passive: false});
+      });
   
       cardGroup.addEventListener('touchend', function(event) {
-        console.log('touchend')
-        event.preventDefault()
           touchendX = event.changedTouches[0].clientX;
           handleSwipe();
       }); 
