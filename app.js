@@ -47,12 +47,12 @@ function innityAppsTurnstile (){
     cancelAnimationFrame(animationFrameId);
     const nextIndex = getNextIndex();
       
-    let nextCardGroups = cardGroups[nextIndex];
+    let nextCardGroup = cardGroups[nextIndex];
     let currentCardGroup = cardGroups[currentIndex];
 
     const currentCardGroupType = getCardGroupType(currentCardGroup);
     
-    let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
+    let lastTrailingCard = nextCardGroup.querySelectorAll('.innity-apps-turnstile-card')[0];
     listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex);
 
     if(currentCardGroupType === type.animation){
@@ -69,19 +69,19 @@ function innityAppsTurnstile (){
       fadeOutToFront(currentCardGroup);
     }
   
-    fadeInFromBack(nextCardGroups);
+    fadeInFromBack(nextCardGroup);
   }
   
   function showPrevCard() {
     const prevIndex = getPrevIndex();
     cancelAnimationFrame(animationFrameId);
   
-    let prevCardGroups = cardGroups[prevIndex];
+    let prevCardGroup = cardGroups[prevIndex];
     let currentCardGroup = cardGroups[currentIndex];
 
     const currentCardGroupType = getCardGroupType(currentCardGroup);
   
-    let prevCards = prevCardGroups.querySelectorAll('.innity-apps-turnstile-card');
+    let prevCards = prevCardGroup.querySelectorAll('.innity-apps-turnstile-card');
     let lastTrailingCard = prevCards[prevCards.length - 1];
 
     listenToAnimationEnd(lastTrailingCard,prevIndex, currentIndex);
@@ -96,7 +96,7 @@ function innityAppsTurnstile (){
 
     fadeOutToBack(currentCardGroup);
   
-    fadeInFromFront(prevCardGroups);
+    fadeInFromFront(prevCardGroup);
   }
 
   function pauseAnimation(cardGroup){
@@ -317,17 +317,11 @@ function innityAppsTurnstile (){
   }
 
   function handleSwipe() {
-    console.log(touchstartX, touchendX)
     if (touchendX < touchstartX) {
-      console.log('left')
       showPrevCard();
     }
     if (touchendX > touchstartX) {
-      console.log('right')
       showNextCard();
-    }
-    if (touchendX == touchstartX) {
-        alert('tap');
     }
 }
 
