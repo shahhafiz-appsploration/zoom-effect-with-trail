@@ -1,0 +1,189 @@
+﻿function innityAppsApplyVideoContinueWatch() {
+  if(videoPlayer !== null) {
+      videoPlayer.initContinueWatch();
+  }
+}
+function innityAppsCancelVideoContinueWatch() {
+  if(videoPlayer !== null) {
+      videoPlayer.userClicked();
+  }
+}
+
+// ========== Video template required code ==========
+var videoPlayer = null, fallbackPlayer = null;
+var visibilityHidden = 'hidden';
+function embedAutoplayVideo() {
+    videoPlayer = new InnityAppsMobileAutoPlayVideo(
+        'video-wrapper',
+        'video1',
+        {
+            webm: 'video1.webm',
+            mp4: 'video1.mp4',
+            mpg: 'video1.mpg',
+            poster: 'video1.jpg',
+            autoplay: false,
+            loop: false,
+            //country:'TW',
+            //forceFullScreen: false,
+            // volume: '50',
+            // clicktoUnmute: true,
+            // pauseable: true,
+            continueWatch: {
+                text: 'Keep watching',
+                tracks: {
+                    thumbnail: 'paused_video1.jpg',
+                    timercode: '10'
+                },
+                fullVideoSrc: 'video1-full',
+                restart: true,
+                callback: null
+            },
+            forceFallback: false,
+            // For fallback player.
+            fullscreen: true,
+            canvaswidth: '320',
+            canvasheight: '180',
+            midctatext: 'Learn More',
+            playstatectatext: 'Learn More',
+            urls: 'clickTAG'
+        },
+        'video1.jpg' // this is fallback video poster.
+    );
+
+    fallbackPlayer = videoPlayer.getFallbackPlayer();
+    if (fallbackPlayer !== null) {
+        runFallbackVideo();
+    }
+
+    visibilityBinding();
+};
+function runFallbackVideo() {
+//    fallbackPlayer.noLoop(); // Preview will not loop after ended.
+//    fallbackPlayer.noAutoplay(); // Preview will not autoplay.
+//    fallbackPlayer.remainPreviewAfterClick(); // Preview will remain there after clicked.
+//    fallbackPlayer.setClickCallback(whenFallbackAutoplayIsClicked);
+//    fallbackPlayer.addListener('load', fallbackVideoOnLoad);
+//    fallbackPlayer.addListener('play', fallbackVideoPlayed);
+//    fallbackPlayer.addListener('ended', whenPreviewEnded);
+//    fallbackPlayer.setVideoEndedCallback(whenHTMLVideoPlayedEnded);
+//    fallbackPlayer.fullscreenCallBack(checkVideoFullScreenStatus);
+    fallbackPlayer.startEngine(); // This is always required!!!!!
+};
+
+function playVideo() {
+    if (videoPlayer === null) {
+        return;
+    }
+
+    if (fallbackPlayer !== null) {
+        fallbackPlayer.playPreview();
+        return;
+    }
+
+    videoPlayer.playVideo();
+};
+function pauseVideo() {
+    if (videoPlayer === null) {
+        return;
+    }
+
+    if (fallbackPlayer !== null) {
+        fallbackPlayer.pausePreview();
+        return;
+    }
+
+    videoPlayer.pauseVideo();
+};
+function visibilityBinding() {
+    var visibilityChangeEvent = 'visibilitychange';
+    if (typeof(document.msHidden) !== 'undefined') {
+        visibilityHidden = 'msHidden';
+        visibilityChangeEvent = 'msvisibilitychange';
+    }
+    else if (typeof(document.webkitHidden) !== 'undefined') {
+        visibilityHidden = 'webkitHidden';
+        visibilityChangeEvent = 'webkitvisibilitychange';
+    }
+
+    document.addEventListener(visibilityChangeEvent, visibilityChange, false);
+};
+function visibilityChange() {
+    if (fallbackPlayer !== null) {
+        return;
+    }
+
+    if (document[visibilityHidden] === true) {
+        // When browser is hidden or in background.
+        videoPlayer.pauseVideo();
+    }
+    else {
+        // When browser is active or focus.
+//        videoPlayer.playVideo();
+    }
+};
+function innityAppsApplyVideoContinueWatch() {
+    if(videoPlayer !== null) {
+        videoPlayer.initContinueWatch();
+    }
+}
+function innityAppsCancelVideoContinueWatch() {
+    if(videoPlayer !== null) {
+        videoPlayer.userClicked();
+    }
+}
+// ========== Video template required code ==========
+
+// ========== Element Generator ==========
+
+function generateMaterial(elementData, container) {
+	var elementType = (typeof(elementData.elType) === 'undefined') ? 'div' : elementData.elType;
+	var materialEl = document.createElement(elementType);
+
+	if(elementType === 'svg' || elementType === 'path'){
+			materialEl = document.createElementNS("http://www.w3.org/2000/svg", elementType);
+	}
+	if(typeof(elementData.id) !== 'undefined') {
+		materialEl.setAttribute('id', elementData.id);
+	}
+	if(typeof(elementData.cssClass) === 'object' && typeof(elementData.cssClass.length) === 'number') {
+		for(var i = 0; i < elementData.cssClass.length; i++) {
+			materialEl.classList.add(elementData.cssClass[i]);
+		}
+	}
+	if(typeof(elementData.innerHTML) !== 'undefined') {
+		materialEl.innerHTML = elementData.innerHTML;
+	}
+	if(typeof(elementData.clickFunc) === 'function') {
+		materialEl.addEventListener('click', function(e) {
+			e.stopPropagation();
+			elementData.clickFunc(materialEl);
+		}, false);
+	}
+	if(typeof(elementData.clickTag) !== 'undefined') {
+		materialEl.addEventListener('click', function(e) {
+			e.stopPropagation();
+			triggerClickTag(elementData.clickTag);
+		}, false);
+	}
+	if(typeof(elementData.cssStyle) !== 'undefined' && typeof(elementData.cssStyle) === 'object') {
+		for(var cssKey in elementData.cssStyle) {
+			materialEl.style[cssKey] = elementData.cssStyle[cssKey];
+		}
+	}
+	if(typeof(elementData.attrs) !== 'undefined' && typeof(elementData.attrs) === 'object') {
+		for(var attrName in elementData.attrs) {
+			if(elementType === 'svg' || elementType === 'path') {
+				materialEl.setAttributeNS(null, attrName, elementData.attrs[attrName]);
+			}
+			else {
+				materialEl.setAttribute(attrName, elementData.attrs[attrName]);
+			}
+		}
+	}
+	if(typeof(elementData.childs) !== 'undefined' && typeof(elementData.childs) === 'object') {
+		for (var i = 0; i < elementData.childs.length; i++) {
+			generateMaterial(elementData.childs[i], materialEl);
+		}
+	}
+	container.appendChild(materialEl);
+};
