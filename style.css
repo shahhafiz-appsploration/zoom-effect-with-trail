@@ -47,6 +47,15 @@ body {
   height: 100%;
 }
 
+#video_container {
+  aspect-ratio: 16 / 9;
+  height: 100%;
+}
+
+#video_container .status-container .video-player-icons {
+  left: 9px;
+}
+
 .innity-apps-turnstile-card-group {
   display: flex;
   justify-content: center;

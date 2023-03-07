@@ -327,6 +327,30 @@ function innityAppsTurnstile (){
   addSwipeListener();
 
   showNextCard();
+
+
+  videoPlayer = new InnityAppsMobileAutoPlayVideo(
+    'video_container',
+    'video1',
+    {
+      webm: typeof adStudioVideoWebm === 'object' ? adStudioVideoWebm[0] : null,
+      mp4: '16-9.mp4',
+      mpg: '16-9.mpg',
+      poster: 'adStudioVideoPosterName',
+      autoplay: true,
+      loop: false,
+      cpm: true,
+      country: 'innityAppsCountry',
+      // For fallback player.
+      fullscreen: true,
+      canvaswidth: '640',
+      canvasheight: '360',
+      midctatext: 'Learn More',
+      playstatectatext: 'Learn More',
+      urls: 'innityAppsVideoClickTag'
+    },
+    'adStudioVideoPosterName' // this is fallback video poster.
+  );
 }
 
 innityAppsTurnstile();

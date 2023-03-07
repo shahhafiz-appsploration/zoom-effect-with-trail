@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turnstile</title>
+    <link href="/components/videoPlayer/InnityAppsVideoPreview.css" rel="stylesheet" class="innity-apps-component-include">
     <link rel="stylesheet" href="style.css">
+    
+    <script src="/html5.js"></script>
+    <script src="/components/detector/InnityAppsMobilePlatform.js" class="innity-apps-component-include"></script>
+    <script src="/components/materialGenerator/InnityAppsMaterialGenerator.js" class="innity-apps-component-include"></script>
+    <script src="/components/videoPlayer/InnityAppsMobileAutoPlayVideo.js" class="innity-apps-component-include"></script>
 </head>
 <body>
 
@@ -35,6 +41,26 @@
     </div>
     <div class="ad-format">
         <div class="innity-apps-turnstile-content">
+            <div class="innity-apps-turnstile-card-group">
+                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
+                    <img class="innity-apps-turnstile-asset" src="video-poster.png" alt="">
+                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
+                </div>
+                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
+                    <img class="innity-apps-turnstile-asset" src="video-poster.png" alt="">
+                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
+                </div>
+                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
+                    <img class="innity-apps-turnstile-asset" src="video-poster.png" alt="">
+                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
+                </div>
+                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
+                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
+                    <!-- <div id="video_container" class="innity-apps-turnstile-asset"></div> -->
+                    <div id="video_container" class="" style="position: absolute;"></div>
+                </div>
+            </div>
+
             <div class="innity-apps-turnstile-card-group">
                 <img src="card_1.png" alt="" class="innity-apps-turnstile-card">
                 <img src="card_1.png" alt="" class="innity-apps-turnstile-card">
@@ -72,31 +98,6 @@
                 <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
                     <canvas class="innity-apps-turnstile-asset" data-animationsrc="splash1.innity"></canvas>
                     <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
-                </div>
-            </div>
-
-            <div class="innity-apps-turnstile-card-group">
-                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
-                    <img class="innity-apps-turnstile-asset" src="video-poster.png" alt="">
-                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
-                </div>
-                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
-                    <img class="innity-apps-turnstile-asset" src="video-poster.png" alt="">
-                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
-                </div>
-                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
-                    <img class="innity-apps-turnstile-asset" src="video-poster.png" alt="">
-                    <img class="innity-apps-turnstile-asset-bg" src="empty-background.png" alt="">
-                </div>
-                <div class="innity-apps-turnstile-asset-container innity-apps-turnstile-card">
-                    <video 
-                        class="innity-apps-turnstile-asset" 
-                        poster="video-poster.png"
-                        controlslist="nodownload"
-                        muted loop playsinline> 
-                        <source src="16-9.mp4" type="video/mp4" >
-                    </video>
-                    <img src="empty-background.png" class="innity-apps-turnstile-asset-bg" alt="">
                 </div>
             </div>
         </div>
