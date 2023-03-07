@@ -103,7 +103,7 @@ function innityAppsTurnstile (){
   }
   
   function listenToAnimationEnd(lastTrailingCard, prevIndex){
-    lastTrailingCard.addEventListener('transitionend',() => {
+    lastTrailingCard.addEventListener('animationend',() => {
       cardSwappedCallback(prevIndex, currentIndex);
       
       currentIndex = prevIndex;
