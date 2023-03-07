@@ -7,6 +7,7 @@ function innityAppsTurnstile (){
   }
   
   let innityAppsCanvasAnimations = [];
+  let innityAppsVideoPlayer = [];
   
   this.animations = innityAppsCanvasAnimations;
 
@@ -62,7 +63,7 @@ function innityAppsTurnstile (){
     if(currentCardGroupType === type.video){
       pauseVideo(currentCardGroup);
     }
-    
+
     if(isFirstCard){
       isFirstCard = false;
     } else {
@@ -336,7 +337,7 @@ function innityAppsTurnstile (){
       webm: typeof adStudioVideoWebm === 'object' ? adStudioVideoWebm[0] : null,
       mp4: '16-9.mp4',
       mpg: '16-9.mpg',
-      poster: 'adStudioVideoPosterName',
+      poster: 'video-poster.png',
       autoplay: true,
       loop: false,
       cpm: true,
@@ -347,9 +348,9 @@ function innityAppsTurnstile (){
       canvasheight: '360',
       midctatext: 'Learn More',
       playstatectatext: 'Learn More',
-      urls: 'innityAppsVideoClickTag'
+      urls: 'https://www.innity.com/'
     },
-    'adStudioVideoPosterName' // this is fallback video poster.
+    'video-poster.png' // this is fallback video poster.
   );
 }
 
