@@ -13,8 +13,8 @@ function innityAppsTurnstile (){
   let animationFrameId = null;
   let cardGroups = document.querySelectorAll(".innity-apps-turnstile-card-group");
 
-  let touchstartX = 0;
-  let touchendX = 0;
+  let touchstartY = 0;
+  let touchendY = 0;
   
   const totalCards = cardGroups.length;
   const threshold = 200;
@@ -303,21 +303,21 @@ function innityAppsTurnstile (){
       let cardGroup = cardGroups[i];
 
       cardGroup.addEventListener('touchstart', function(event) {
-          touchstartX = event.touches[0].clientX;
+          touchstartY = event.touches[0].clientY;
       });
   
       cardGroup.addEventListener('touchend', function(event) {
-          touchendX = event.changedTouches[0].clientX;
+          touchendY = event.changedTouches[0].clientY;
           handleSwipe();
       }); 
     }
   }
 
   function handleSwipe() {
-    if (touchendX < touchstartX) {
+    if (touchendY < touchstartY) {
       showPrevCard();
     }
-    if (touchendX > touchstartX) {
+    if (touchendY > touchstartY) {
       showNextCard();
     }
 }
