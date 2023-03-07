@@ -202,7 +202,7 @@ function innityAppsTurnstile (){
 
   function createAnimationCardTrail(animatedCard, cardGroup){
     setTimeout(() => {
-      let trailElements = cardGroup.querySelectorAll('img.innity-apps-turnstile-card')
+      let trailElements = cardGroup.querySelectorAll('img.innity-apps-turnstile-asset')
       let trailImage = animatedCard.toDataURL();
   
       for (let i = 0; i < trailElements.length; i++) {
@@ -216,7 +216,7 @@ function innityAppsTurnstile (){
   function updateCurrentAnimationCardTrail(){
       let currentCardGroup = cardGroups[currentIndex]
       let animatedCard = currentCardGroup.querySelector('canvas')
-      let trailElements = currentCardGroup.querySelectorAll('img.innity-apps-turnstile-card')
+      let trailElements = currentCardGroup.querySelectorAll('img.innity-apps-turnstile-asset')
       let trailImage = animatedCard.toDataURL();
   
       for (let i = 0; i < trailElements.length; i++) {
@@ -237,7 +237,7 @@ function innityAppsTurnstile (){
     videoElement.pause();
 
     let trailImage = takeVideoScreenshot(videoElement);
-    let trails = cardGroup.querySelectorAll('img.innity-apps-turnstile-video');
+    let trails = cardGroup.querySelectorAll('img.innity-apps-turnstile-asset');
 
     for (let i = 0; i < trails.length; i++) {
       let trail = trails[i];

@@ -28,18 +28,18 @@ body {
   height: 10%;
 }
 
-.innity-apps-turnstile-video-background{
+.innity-apps-turnstile-asset-bg{
     height: 100%;
     width: auto;
 }
 
-.innity-apps-turnstile-video{
+.innity-apps-turnstile-asset{
     width: auto;
     height: 100%;
     position: absolute;
 }
 
-.innity-apps-turnstile-video-container {
+.innity-apps-turnstile-asset-container {
   display: flex;
   justify-content: center;
   align-items: center;
