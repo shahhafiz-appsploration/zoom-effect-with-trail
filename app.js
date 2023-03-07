@@ -12,6 +12,9 @@ function innityAppsTurnstile (){
 
   let animationFrameId = null;
   let cardGroups = document.querySelectorAll(".innity-apps-turnstile-card-group");
+
+  let touchstartX = 0;
+  let touchendX = 0;
   
   const totalCards = cardGroups.length;
   const threshold = 200;
@@ -51,7 +54,7 @@ function innityAppsTurnstile (){
     
     let lastTrailingCard = nextCardGroups.querySelectorAll('.innity-apps-turnstile-card')[0];
     listenToAnimationEnd(lastTrailingCard,nextIndex, currentIndex);
-    
+
     if(currentCardGroupType === type.animation){
       pauseAnimation(currentCardGroup);
     }
@@ -295,7 +298,42 @@ function innityAppsTurnstile (){
       return type.image
   }
 
+  function addSwipeListener () {
+    for (let i = 0; i < cardGroups.length; i++) {
+      let cardGroup = cardGroups[i];
+
+      cardGroup.addEventListener('touchstart', function(event) {
+        console.log('touchstart')
+          touchstartX = event.touches[0].clientX;
+      },{passive: false});
+  
+      cardGroup.addEventListener('touchend', function(event) {
+        console.log('touchend')
+        event.preventDefault()
+          touchendX = event.changedTouches[0].clientX;
+          handleSwipe();
+      }); 
+    }
+  }
+
+  function handleSwipe() {
+    console.log(touchstartX, touchendX)
+    if (touchendX < touchstartX) {
+      console.log('left')
+      showPrevCard();
+    }
+    if (touchendX > touchstartX) {
+      console.log('right')
+      showNextCard();
+    }
+    if (touchendX == touchstartX) {
+        alert('tap');
+    }
+}
+
   populateCanvasAnimations();
+
+  addSwipeListener();
 
   showNextCard();
 }
