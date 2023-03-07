@@ -297,7 +297,7 @@ function innityAppsTurnstile (){
 
   populateCanvasAnimations();
 
-  checkForCardSwap();
+  showNextCard();
 }
 
 innityAppsTurnstile();
