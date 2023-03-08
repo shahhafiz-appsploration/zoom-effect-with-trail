@@ -322,7 +322,7 @@ function innityAppsTurnstile (){
     if (touchendY > touchstartY) {
       showNextCard();
     }
-}
+  }
 
   function populateVideos(){
     for (let i = 0; i < cardGroups.length; i++) {
@@ -340,7 +340,7 @@ function innityAppsTurnstile (){
 
       videoContainer.setAttribute('id',randomVideoContainerID);
 
-      videoPlayer = new InnityAppsMobileAutoPlayVideo(
+      new InnityAppsMobileAutoPlayVideo(
         randomVideoContainerID,
         randomVideoID,
         {
@@ -351,16 +351,8 @@ function innityAppsTurnstile (){
           autoplay: false,
           loop: false,
           cpm: true,
-          country: 'innityAppsCountry',
-          // For fallback player.
-          fullscreen: true,
-          canvaswidth: '640',
-          canvasheight: '360',
-          midctatext: 'Learn More',
-          playstatectatext: 'Learn More',
-          urls: 'https://www.innity.com/'
+          country: 'Malaysia',
         },
-        videoPoster // this is fallback video poster.
       );
     }
   }
@@ -378,16 +370,9 @@ function innityAppsTurnstile (){
     document.addEventListener(visibilityChangeEvent, visibilityChange, false);
   }
   function visibilityChange() {
-    console.log('visibility change')
-    // if (fallbackPlayer !== null) {
-    //   return;
-    // }
-  
     if (document[visibilityHidden] === true) {
-      // When browser is hidden or in background.
       pauseVideo();
     } else {
-      // When browser is active or focus.
       playVideo();
     }
   }
