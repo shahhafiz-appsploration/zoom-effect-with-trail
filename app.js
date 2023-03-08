@@ -61,7 +61,7 @@ function innityAppsTurnstile (){
     }
 
     if(currentCardGroupType === type.video){
-      pauseVideo(currentCardGroup);
+      pauseVideo();
     }
 
     if(isFirstCard){
@@ -92,7 +92,7 @@ function innityAppsTurnstile (){
     }
 
     if(currentCardGroupType === type.video){
-      pauseVideo(currentCardGroup);
+      pauseVideo();
     }
 
     fadeOutToBack(currentCardGroup);
@@ -233,7 +233,8 @@ function innityAppsTurnstile (){
     videoElement.play();
   }
 
-  function pauseVideo(cardGroup){
+  function pauseVideo(){
+    let cardGroup = cardGroups[currentIndex];
     let videoElement = cardGroup.querySelector('video');
     videoElement.pause();
 
@@ -363,6 +364,35 @@ function innityAppsTurnstile (){
       );
     }
   }
+
+  function visibilityBinding() {
+    var visibilityChangeEvent = 'visibilitychange';
+    if (typeof (document.msHidden) !== 'undefined') {
+      visibilityHidden = 'msHidden';
+      visibilityChangeEvent = 'msvisibilitychange';
+    } else if (typeof (document.webkitHidden) !== 'undefined') {
+      visibilityHidden = 'webkitHidden';
+      visibilityChangeEvent = 'webkitvisibilitychange';
+    }
+  
+    document.addEventListener(visibilityChangeEvent, visibilityChange, false);
+  }
+  function visibilityChange() {
+    console.log('visibility change')
+    // if (fallbackPlayer !== null) {
+    //   return;
+    // }
+  
+    if (document[visibilityHidden] === true) {
+      // When browser is hidden or in background.
+      pauseVideo();
+    } else {
+      // When browser is active or focus.
+      playVideo();
+    }
+  }
+
+  visibilityBinding();
 
   populateVideos();
 
