@@ -323,35 +323,55 @@ function innityAppsTurnstile (){
     }
 }
 
+  function populateVideos(){
+    for (let i = 0; i < cardGroups.length; i++) {
+      let cardGroup = cardGroups[i];
+      const videoContainer = cardGroup.querySelector('.innity-apps-turnstile-video-asset'); 
+
+      if(videoContainer === null){
+        continue;
+      }
+
+      const randomVideoContainerID = Math.floor(Math.random() * 1000);
+      const randomVideoID = Math.floor(Math.random() * 1000);
+      const videoSrc = videoContainer.dataset.videosrc
+      const videoPoster = videoContainer.dataset.videoposter
+
+      videoContainer.setAttribute('id',randomVideoContainerID);
+
+      videoPlayer = new InnityAppsMobileAutoPlayVideo(
+        randomVideoContainerID,
+        randomVideoID,
+        {
+          webm: typeof adStudioVideoWebm === 'object' ? adStudioVideoWebm[0] : null,
+          mp4: `${videoSrc}.mp4`,
+          mpg: `${videoSrc}.mpg`,
+          poster: videoPoster,
+          autoplay: false,
+          loop: false,
+          cpm: true,
+          country: 'innityAppsCountry',
+          // For fallback player.
+          fullscreen: true,
+          canvaswidth: '640',
+          canvasheight: '360',
+          midctatext: 'Learn More',
+          playstatectatext: 'Learn More',
+          urls: 'https://www.innity.com/'
+        },
+        videoPoster // this is fallback video poster.
+      );
+    }
+  }
+
+  populateVideos();
+
   populateCanvasAnimations();
 
   addSwipeListener();
 
   showNextCard();
 
-
-  videoPlayer = new InnityAppsMobileAutoPlayVideo(
-    'video_container',
-    'video1',
-    {
-      webm: typeof adStudioVideoWebm === 'object' ? adStudioVideoWebm[0] : null,
-      mp4: '16-9.mp4',
-      mpg: '16-9.mpg',
-      poster: 'video-poster.png',
-      autoplay: true,
-      loop: false,
-      cpm: true,
-      country: 'innityAppsCountry',
-      // For fallback player.
-      fullscreen: true,
-      canvaswidth: '640',
-      canvasheight: '360',
-      midctatext: 'Learn More',
-      playstatectatext: 'Learn More',
-      urls: 'https://www.innity.com/'
-    },
-    'video-poster.png' // this is fallback video poster.
-  );
 }
 
 innityAppsTurnstile();

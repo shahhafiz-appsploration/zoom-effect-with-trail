@@ -47,13 +47,9 @@ body {
   height: 100%;
 }
 
-#video_container {
+.innity-apps-turnstile-video-asset {
   aspect-ratio: 16 / 9;
   height: 100%;
-}
-
-#video_container .status-container .video-player-icons {
-  left: 9px;
 }
 
 .innity-apps-turnstile-card-group {
@@ -325,3 +321,12 @@ body {
   animation-delay: 0.3s;
 }
 /* Fade Out To Back End */
+
+/* Custom css for video player */
+.innity-apps-turnstile-video-asset .controls_wrapper > .audio, .controls_wrapper > .fs, .controls_wrapper > .play-pause {
+  width: 38px;
+}
+
+.innity-apps-turnstile-video-asset .status-container .video-player-icons {
+  left: 9px;
+}
